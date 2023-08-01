@@ -2,13 +2,15 @@
 
 In the previous chapter, we saw that people/models can have different beliefs/hypotheses about a phenomenon. Sarah was quite certain that the true probability of the coin landing heads was $0.5$, whereas David believed that the coin was biased towards heads, assigning more mass to higher values of $\theta$. We saw how we can observe data to test which of the models predicted this data the best, using the Bayes factor. In this chapter, we will look at how individual models update their beliefs, as a result of observing the data. In doing so, this chapter will illustrate the core Bayesian concept of starting with **prior** knowledge/beliefs, updating this knowledge with observed data, to end up with **posterior** knowledge/beliefs about a parameter.
 
-The following formula reflects this process: \begin{align}
+The following formula reflects this process: 
+\begin{align}
 \label{eq-binomial-estimation}
 \underbrace{ p(\theta \mid \text{data})}_{\substack{\text{Posterior beliefs}}} \,\,\, = \,\,\,
 \underbrace{ p(\theta)}_{\substack{\text{Prior beliefs} }}
 \,\,\,\, \times
 \overbrace{\underbrace{\frac{p( \text{data} \mid \theta)}{p( \text{data})}}}^{\substack{\text{Prediction for specific }\theta }}_{\substack{\text{Average prediction} \\\text{across all }  \theta's}}.
-\end{align} We have prior beliefs, which are updated by an **updating factor**, to form posterior beliefs. The updating factor indicates for each possible value of $\theta$, how well it predicted the observed data, relative to all other possible values of $\theta$. If this is still sounding rather vague, don't worry - in this section we will demonstrate how this updating factor operates. However, before we discuss the updating factor, we go back to the start, and discuss the concept of prior knowledge/beliefs.
+\end{align} 
+We have prior beliefs, which are updated by an **updating factor**, to form posterior beliefs. The updating factor indicates for each possible value of $\theta$, how well it predicted the observed data, relative to all other possible values of $\theta$. If this is still sounding rather vague, don't worry - in this section we will demonstrate how this updating factor operates. However, before we discuss the updating factor, we go back to the start, and discuss the concept of prior knowledge/beliefs.
 
 ```{r, echo = FALSE}
 tBetFun <- function(x, shape1 = 1, shape2 = 1, side = "pos") {
@@ -165,6 +167,7 @@ The models shown so far differ in their "learning ability". Generally, the uninf
 While Alex was casting a very wide net, Sarah was doing the opposite. Rather than considering all values of $\theta$, Sarah was absolutely sure that there was only one possible value of $\theta$, namely $0.5$.
 
 ```{r sarah-model-binomial, fig.cap="Sarah's model for a coin toss. The arrow indicates that only a single value for theta is postulated.", fig.align='center', out.width='90%', echo = FALSE}
+#| label: fig-sarah-model-binomial
 par(mfrow = c(1, 1), cex.main = 1)
 cols <- viridis::viridis(6)
 plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Sarahs Model",
@@ -327,7 +330,6 @@ When employing such a null/alternative hypothesis setup, there exists a convenie
 For a different point of testing, for instance $0.8$, we can take the Savage-Dickey density ratio at that point. With a test value of 0.8, the null model becomes equal to Paul's model (his prior distribution was concentrated on the value 0.8), so we are comparing Alex' model to Paul's model. In @fig-prior-posterior-binomial-sd-ratio, the density values are indicated by the purple dots. Here, the null model (i.e., Paul's model) did very well, since $0.8$ fits the observed data very well, as indicated by the posterior density being much higher than the prior density at that point ($\text{BF}_{01} \approx 3$).
 
 ```{r prior-posterior-binomial-sd-ratio, fig.cap="Prior and posterior distribution for Alex, with the grey/purple dots indicating the prior/posterior density values for two test values: 0.5 and 0.8. The ratio of the grey values is equal to the Bayes factor comparing Alex' and Sarah's models, while the ratio of the purple values is equal to the Bayes factor comparing Alex' and Paul's models. This ratio is known as the Savage-Dickey density value.", fig.align='center', out.width='90%', echo = FALSE}
-
 #| label: fig-prior-posterior-binomial-sd-ratio
 margLik <- 1/11
 ss <- seq(0, 1, length.out = 1e4)
