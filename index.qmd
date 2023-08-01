@@ -1,0 +1,16 @@
+# Preface {.unnumbered}
+
+**This book is still a work in progress**
+
+*If you encounter any errors/issues, you can reach me [here.](mailto:j.b.vandoorn@uva.nl)*
+
+This booklet offers an introduction to Bayesian inference. We look at how different models make different claims about a parameter, how they learn from observed data, and how we can compare these models to each other. We illustrate these ideas through an informal beer-tasting experiment conducted at the University of Amsterdam.^[In fact, this text is an elaborated version of an article we published on the experiment, see [van @vanDoorn2020class](https://journals.sagepub.com/doi/full/10.1177/1475725719848574)]
+A key concept in Bayesian inference is *predictive quality*: how well did a model, or parameter value, predict the observed data? We use this predictive quality to update our knowledge about the world, and then use the updated knowledge to make predictions about tomorrow's world. This learning cycle is visualized below, and will be revisited throughout the booklet. 
+
+In the first chapters, the basic Bayesian ingredients (models, prior, posterior, Bayes factor) will be disucssed. In the chapters that follow, these ingredients are used to cook up results for the beer-tasting experiment. Specifically, the Bayesian binomial test, correlation test, and $t$-test will be demonstrated. 
+
+```{r bayesian-learning-cycle, echo = FALSE, fig.cap = "Bayesian learning cycle. ", fig.align='center', out.width= '100%'}
+knitr::include_graphics("Figures/BayesianLearningCycle.jpg", dpi=120) 
+```
+
+

@@ -1,0 +1,28 @@
+project:
+  type: book
+
+book:
+  title: "A Brief Introduction to Bayesian Inference"
+  subtitle: "From Tea to Beer"
+  author: "Johnny van Doorn"
+  date: "`r Sys.Date()`"
+  chapters:
+    - index.qmd
+    - 01-intro.qmd
+    - 02-models.qmd
+    - 03-estimation.qmd
+    - 04-beer.qmd
+    - 05-more-tests.qmd
+    - 06-exercises.qmd
+
+bibliography:
+  - book.bib
+  - packages.bib
+format:
+  html:
+    theme: cosmo
+  pdf:
+    documentclass: scrreprt
+
+editor: visual
+

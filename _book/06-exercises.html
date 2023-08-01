@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>A Brief Introduction to Bayesian Inference - 6&nbsp; Exercises</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./05-more-tests.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./06-exercises.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Brief Introduction to Bayesian Inference</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-models.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is a Model?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How do Models Estimate?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-beer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Beer Tasting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-more-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">More Bayesian Analyses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-exercises.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#binomial-test" id="toc-binomial-test" class="nav-link active" data-scroll-target="#binomial-test"><span class="header-section-number">6.1</span> Binomial Test</a>
+  <ul class="collapse">
+  <li><a href="#therapeutic-touch" id="toc-therapeutic-touch" class="nav-link" data-scroll-target="#therapeutic-touch"><span class="header-section-number">6.1.1</span> Therapeutic Touch</a></li>
+  <li><a href="#psychologists-tasting-beer" id="toc-psychologists-tasting-beer" class="nav-link" data-scroll-target="#psychologists-tasting-beer"><span class="header-section-number">6.1.2</span> Psychologists Tasting Beer</a></li>
+  </ul></li>
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation"><span class="header-section-number">6.2</span> Correlation</a>
+  <ul class="collapse">
+  <li><a href="#correlation-a.w.e.s.o.m.-o-4000" id="toc-correlation-a.w.e.s.o.m.-o-4000" class="nav-link" data-scroll-target="#correlation-a.w.e.s.o.m.-o-4000"><span class="header-section-number">6.2.1</span> Correlation: A.W.E.S.O.M.-O 4000</a></li>
+  </ul></li>
+  <li><a href="#t-test" id="toc-t-test" class="nav-link" data-scroll-target="#t-test"><span class="header-section-number">6.3</span> T-Test</a>
+  <ul class="collapse">
+  <li><a href="#the-effect-of-directed-reading-exercises" id="toc-the-effect-of-directed-reading-exercises" class="nav-link" data-scroll-target="#the-effect-of-directed-reading-exercises"><span class="header-section-number">6.3.1</span> The Effect of Directed Reading Exercises</a></li>
+  <li><a href="#psychologists-tasting-beer-2-t-test-boogaloo" id="toc-psychologists-tasting-beer-2-t-test-boogaloo" class="nav-link" data-scroll-target="#psychologists-tasting-beer-2-t-test-boogaloo"><span class="header-section-number">6.3.2</span> Psychologists Tasting Beer 2: T-Test Boogaloo</a></li>
+  </ul></li>
+  <li><a href="#summary-stats" id="toc-summary-stats" class="nav-link" data-scroll-target="#summary-stats"><span class="header-section-number">6.4</span> Summary Stats</a>
+  <ul class="collapse">
+  <li><a href="#t-test-flag-priming" id="toc-t-test-flag-priming" class="nav-link" data-scroll-target="#t-test-flag-priming"><span class="header-section-number">6.4.1</span> T-Test: Flag Priming</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Below you will find various exercises on the intricate world of Bayesian inference, testing your knowledge and intuition about Bayesian parameter estimation and Bayesian hypothesis testing in the context of various statistical tests (binomial test, correlation, <span class="math inline">\(t\)</span>-test). The exercises use statistical software JASP (https://jasp-stats.org). Each exercise lists links to webpages with either only JASP output (so you can also complete the exercises without installing JASP), or with annotated JASP output containing the solutions/explanation to the exercises (and additional ramblings that hopefully provide some extra intuition). The output files can also be found here in case the OSF does not work for you: https://surfdrive.surf.nl/files/index.php/s/OHjXsc79TkeYWgN</p>
+<p>If you want to conduct an analysis in JASP, but get stuck, you can consult <a href="https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ">this playlist with 3 instructional videos (one for each of the analyses below)</a></p>
+<section id="binomial-test" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="binomial-test"><span class="header-section-number">6.1</span> Binomial Test</h2>
+<section id="therapeutic-touch" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="therapeutic-touch"><span class="header-section-number">6.1.1</span> Therapeutic Touch</h3>
+<p>Therapeutic Touch (TT) is a nursing practice rooted in mysticism but alleged to have a scientific basis. Practitioners of TT claim to treat medical conditions by using their hands to manipulate a “human energy field” perceptible above the patients’ skin. Being a skeptical mind, 9-year old Emily Rosa ventured to test these claims by designing an experiment where TT practitioners had to correctly identify the location of the experimenter’s hand (above their left or right hand) while being blinded by a screen. The results of this experiment were later published in the prestigious Journal of the American Medical Association (Rosa et al., 1998). In the following exercise, you will evaluate this data set with JASP.</p>
+<ul>
+<li>JASP file with only the results: https://osf.io/snu9r/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/273yp/</li>
+</ul>
+<ol type="1">
+<li>Open the “Emily Rosa” dataset from the JASP Data Library (you can find it in the folder “Frequencies”). Alternatively, use the link above to view the results without using JASP.</li>
+<li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (Go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “Outcome”). How many practitioners guessed correctly? What is the proportion?</li>
+<li>Produce a prior and posterior plot for a two-sided test and interpret the 95% credible interval displayed in it.</li>
+<li>Conduct a Bayesian Binomial Test to test if the practitioners’ ability (i.e., proportion of correct responses) is better than random (i.e., <span class="math inline">\(\theta &gt; 0.5\)</span>). Use the default prior for the alternative hypothesis. What is the Bayes factor in favor of the null hypothesis (<span class="math inline">\(\text{BF}_{0+}\)</span>)?</li>
+<li>How would you interpret the Bayes factor?</li>
+<li>Take a look at the sequential analysis plot. What was (approximately) the largest Bayes factor in favor of the alternative hypothesis that was ever reached in the sequential analysis of the data?</li>
+<li>Imagine a previous experiment with 10 practitioners, where 8 therapists gave the correct answer. Construct an informed prior distribution based on their results. How do the results of the hypothesis test change when compared to a default prior?</li>
+</ol>
+</section>
+<section id="psychologists-tasting-beer" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="psychologists-tasting-beer"><span class="header-section-number">6.1.2</span> Psychologists Tasting Beer</h3>
+<p>Friday afternoon, May 12th 2017, an informal beer tasting experiment took place at the Department of Psychology, University of Amsterdam. The experiment was preregistered, the OSF directory with background information is https://osf.io/m3ju9/, and the corresponding article can be found at https://psyarxiv.com/d8bvn/.</p>
+<p>Short description: Each participant was (blinded) given two cups of Weihestephan Hefeweissbier, one cup with the regular variety, one cup with the non-alcoholic version. Participants had to indicate which cup contained the alcohol, the confidence in their judgment, and an assessment of how much they liked the beer. The data set contains the following variables:</p>
+<ul>
+<li>AlcBeerFist: 1 = alcoholic version was tasted first; 0 = alcoholic version was tasted second. This is not likely to matter, as participants were allowed to sample the cups at will.</li>
+<li>CorrectIdentify: 1 = correct, 0 = incorrect.</li>
+<li>ConfidenceRating: Assessment of confidence in the identification judgment on a scale from 0 (complete guess) to 100 (certainty).</li>
+<li>AlcRating: Taste rating for the regular, alcoholic version, on a scale from 0 (worst beer ever) to 100 (best beer ever).</li>
+<li>NonAlcRating: Taste rating for the non-alcoholic version, on a scale from 0 (worst beer ever) to 100 (best beer ever).</li>
+</ul>
+<p>In this exercise, you will conduct a Bayesian binomial test to analyze the proportion of correct responses.</p>
+<ul>
+<li>csv file with the data: https://osf.io/zh9md/</li>
+<li>JASP file with only the results: https://osf.io/azkvc/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/jn3es/</li>
+</ul>
+<ol type="1">
+<li>Download the csv file from the OSF and open the data in JASP. Alternatively, use the link above to view the results without using JASP.</li>
+<li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “CorrectIdentify”). What percentage of participants had a correct response (“1”)?</li>
+<li>Which settings can we use to specify our alternative hypothesis (see Figure @ref(fig:jasp-screenshot-binomial-test) for the available settings)? What do these settings imply?</li>
+<li>Using a uniform prior distribution, what are the two-sided Bayes factors (<span class="math inline">\(\text{BF}_{10}\)</span>) for the proportion of incorrect responses (“0”) and for the proportion of correct responses (“1”)? Are they equal? Explain why (not).</li>
+<li>In order to test whether people are able to taste the difference, conduct a one-sided hypothesis test to test if <span class="math inline">\(\theta &gt; 0.5\)</span>. What is the Bayes factor (<span class="math inline">\(\text{BF}_{+0}\)</span>)? How do you interpret this? What is your verdict on the claim that psychologists can taste the difference between alcoholic and non-alcoholic beer?</li>
+<li>Conduct a Sequential analysis to inspect how the Bayes factor developed as the data accumulated. Did it ever provide strong evidence for the null hypothesis? Around which value did the Bayes factor cross the threshold of 100?</li>
+<li>Imagine being someone who is very confident in psychologists beer tasting ability, because they once did their own experiment and saw that 10 out of 11 could taste the difference. What would their prior distribution look like? How does this affect the one-sided Bayes factor (<span class="math inline">\(\text{BF}_{+0}\)</span>) for the proportion of correct responses?</li>
+</ol>
+</section>
+</section>
+<section id="correlation" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="correlation"><span class="header-section-number">6.2</span> Correlation</h2>
+<section id="correlation-a.w.e.s.o.m.-o-4000" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1" class="anchored" data-anchor-id="correlation-a.w.e.s.o.m.-o-4000"><span class="header-section-number">6.2.1</span> Correlation: A.W.E.S.O.M.-O 4000</h3>
+<p>In South Park episode 116, one of the series’ main protagonists, Eric Cartman, pretends to be a robot from Japan, the “A.W.E.S.O.M.-O 4000”. When kidnapped by Hollywood movie producers and put under pressure to generate profitable movie concepts, Cartman manages to generate thousands of silly ideas, 800 of which feature Adam Sandler. We conjecture that the makers of South Park believe that Adam Sandler movies are profitable regardless of their quality. In this exercise, we put forward the following South Park hypothesis: “For Adam Sandler movies, there is no correlation between box-office success and movie quality (i.e.,”freshness” ratings on Rotten Tomatoes; www.rottentomatoes.com).”</p>
+<ul>
+<li>JASP file with only the results: https://osf.io/xs9dq/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/5fq6s/</li>
+</ul>
+<ol type="1">
+<li>Open the “Adam Sandler” dataset from the JASP Data Library (you can find it in the folder “Regression”).</li>
+<li>Produce a boxplot for the variables “Freshness” and ``Box Office ($M)“. Are there any outliers in the data?</li>
+<li>Conduct a Bayesian Correlation Pairs test to test if there is any correlation is absent or present (<span class="math inline">\(\rho = 0\)</span> vs.&nbsp;<span class="math inline">\(\rho\neq 0\)</span>). Use the default prior (``Stretched beta prior width” <span class="math inline">\(= 1\)</span>) for the alternative hypothesis. What is the correlation coefficient <span class="math inline">\(r\)</span>?</li>
+<li>Produce a prior and posterior plot and interpret the median and 95% credible interval displayed in it.<br>
+</li>
+<li>How much did the posterior probability at <span class="math inline">\(\rho = 0\)</span> increase with regards to the prior probability? How are these points displayed in JASP? And how is this reflected in the result of the analysis?</li>
+<li>What is the Bayes factor in favor of the null hypothesis (<span class="math inline">\(\text{BF}_{01}\)</span>)? How would you interpret the Bayes factor?</li>
+<li>Now perform a one-sided test to test whether the correlation is positive (<span class="math inline">\(\rho = 0\)</span> vs.&nbsp;<span class="math inline">\(\rho&gt; 0\)</span>). How does this Bayes factor (<span class="math inline">\(\text{BF}_{+0}\)</span>) differ from the two-sided Bayes factor(<span class="math inline">\(\text{BF}_{10}\)</span>) – is it higher or lower?</li>
+<li>Produce a Bayes Factor Robustness Plot. What is the effect of the prior width on the Bayes factor (<span class="math inline">\(\text{BF}_{0+}\)</span>)? What does this mean for our result?</li>
+<li>Adam Sandler doesn’t approve of our hypothesis, comes out and says that movie critics on Rotten Tomatoes purposely down-rate his awesome movies. He argues that there should be a negative correlation between box-office success and the quality of his movies. Perform a Bayesian Correlation Test with Adam’s alternative hypothesis. Would you support him in his claim? Why (not)?</li>
+</ol>
+</section>
+</section>
+<section id="t-test" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="t-test"><span class="header-section-number">6.3</span> T-Test</h2>
+<section id="the-effect-of-directed-reading-exercises" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="the-effect-of-directed-reading-exercises"><span class="header-section-number">6.3.1</span> The Effect of Directed Reading Exercises</h3>
+<p>A teacher believes that directed reading activities in the classroom can improve the reading ability of elementary school children. She convinces her colleagues to give her the chance to try out the new method on a random sample of 21 third-graders. After they participated for 8 weeks in the program, the children take the Degree of Reading Power test (DRP). Their scores are compared to a control group of 23 children who took the test on the same day and followed the same curriculum apart from the reading activities. In the following exercise, you will evaluate this dataset with JASP.</p>
+<ul>
+<li>JASP file with only the results: https://osf.io/85fbv/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/3qgnc</li>
+</ul>
+<ol type="1">
+<li>Open the “Directed Reading Activities” dataset from the JASP Data Library (you can find it in the folder “T-Tests”).</li>
+<li>Get a descriptive overview of the data.
+<ol type="a">
+<li>Create a table that shows the means and standard deviations of DRP scores in the control and treatment group (specify “drp” as the “Variable” and specify “group” as the “Split”).</li>
+<li>Create a boxplot that shows the distribution of DRP scores for each group.</li>
+</ol></li>
+<li>Using the Bayesian independent samples <span class="math inline">\(t\)</span>-test (use the variable “group” as the “Grouping Variable”), with the default prior distribution, obtain a posterior distribution for the standardized effect size <span class="math inline">\(\delta\)</span>. What is the 95% credible interval? Is 0 in this interval? What if you used a 99% credible interval?</li>
+<li>How would you interpret the credible interval?</li>
+<li>Now conduct a Bayesian independent samples <span class="math inline">\(t\)</span>-test to test whether the control group performs worse than the treatment group (i.e., the mean of the control group is lower than the mean of the treatment group). Use the default prior for the alternative hypothesis. What is the Bayes factor in favor of the alternative hypothesis (<span class="math inline">\(\text{BF}_{-0}\)</span>)?</li>
+<li>How would you interpret the Bayes factor?</li>
+<li>Create a Bayes factor robustness plot.
+<ol type="a">
+<li>What is the maximum Bayes factor in favor of the alternative hypothesis that you could achieve by tinkering with the scale parameter of the Cauchy distribution?</li>
+<li>Which scale parameter corresponds to the maximum Bayes factor?</li>
+<li>Is the default prior that you used wider or narrower than the prior corresponding to the maximum Bayes factor?</li>
+<li>Would you say that the Bayes factor is robust against different formulations of the prior?</li>
+</ol></li>
+</ol>
+</section>
+<section id="psychologists-tasting-beer-2-t-test-boogaloo" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="psychologists-tasting-beer-2-t-test-boogaloo"><span class="header-section-number">6.3.2</span> Psychologists Tasting Beer 2: T-Test Boogaloo</h3>
+<p>Friday afternoon, May 12th 2017, an informal beer tasting experiment took place at the Department of Psychology, University of Amsterdam. The experiment was preregistered, the OSF directory with background information is https://osf.io/m3ju9/, and the corresponding article can be found at https://psyarxiv.com/d8bvn/.</p>
+<p>Short description: Each participant was (blinded) given two cups of Weihestephan Hefeweissbier, one cup with the regular variety, one cup with the non-alcoholic version. Participants had to indicate which cup contained the alcohol, the confidence in their judgment, and an assessment of how much they liked the beer. The data set contains the following variables:</p>
+<ul>
+<li>AlcBeerFist: 1 = alcoholic version was tasted first; 0 = alcoholic version was tasted second. This is not likely to matter, as participants were allowed to sample the cups at will.</li>
+<li>CorrectIdentify: 1 = correct, 0 = incorrect.</li>
+<li>ConfidenceRating: Assessment of confidence in the identification judgment on a scale from 0 (complete guess) to 100 (certainty).</li>
+<li>AlcRating: Taste rating for the regular, alcoholic version, on a scale from 0 (worst beer ever) to 100 (best beer ever).</li>
+<li>NonAlcRating: Taste rating for the non-alcoholic version, on a scale from 0 (worst beer ever) to 100 (best beer ever).</li>
+</ul>
+<p>In this exercise, we revisit this data set but instead apply a series of <span class="math inline">\(t\)</span>-tests in order to answer two questions. First, was there a meaningful difference in confidence between people that were correct and people that were incorrect? Second, did people like the alcoholic beer better than the non-alcoholic beer?</p>
+<ul>
+<li>csv file with the data: https://osf.io/zh9md/</li>
+<li>JASP file with only the results: https://osf.io/xjdyt/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/rmdac</li>
+</ul>
+<ol type="1">
+<li>What sort of <span class="math inline">\(t\)</span>-test (e.g., independent samples or paired samples) do we need for the first research question? And for the second research question?</li>
+<li>Download the csv file from the OSF and open the data in JASP.</li>
+<li>Conduct a Bayesian independent samples <span class="math inline">\(t\)</span>-test on the confidence ratings, and group by “CorrectIdentify”. Tick the boxes to get a table with the descriptive statistics, and a raincloud plot (displayed horizontally or vertically). What can you learn from these statistics?</li>
+<li>What is the one-sided Bayes factor (<span class="math inline">\(\text{BF}_{-0}\)</span>), where the alternative hypothesis postulates that confidence ratings are <em>higher</em> for the correct responses than for the incorrect responses?</li>
+<li>What can we conclude about the confidence ratings?</li>
+<li>Conduct a paired samples <span class="math inline">\(t\)</span>-test in order to test whether participants preferred the taste of the alcoholic beer over the taste of the non-alcoholic beer. To do so, go to “Bayesian Paired Samples T-Test” and then drag the two variables with the ratings (“AlcRating” and “NonAlcRating”) to the “Variable Pairs” box.</li>
+<li>What is Bayes factor comparing the one-sided alternative hypothesis (which postulates that alcoholic beer is tastier than non-alcoholic beer) to the null hypothesis?</li>
+<li>Tick the box “Descriptives” under “Additional Statistics” to get a table with some descriptive and inferential statistics for each of the two variables. What is the difference between the two means?</li>
+<li>What can you conclude about the taste of the two beers?</li>
+</ol>
+</section>
+</section>
+<section id="summary-stats" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="summary-stats"><span class="header-section-number">6.4</span> Summary Stats</h2>
+<section id="t-test-flag-priming" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="t-test-flag-priming"><span class="header-section-number">6.4.1</span> T-Test: Flag Priming</h3>
+<p>In this exercise, we conduct a reanalysis of the article “A Single Exposure to the American Flag Shifts Support Toward Republicanism up to 8 Months Later” (<span class="citation" data-cites="CarterEtAl2011">Carter, Ferguson, and Hassin (<a href="#ref-CarterEtAl2011" role="doc-biblioref">2011</a>)</span>):</p>
+<blockquote class="blockquote">
+<p>… tested whether a single exposure to the American flag would lead participants to shift their attitudes, beliefs, and behavior in the politically conservative direction. We conducted a multisession study during the 2008 U.S. presidential election.</p>
+</blockquote>
+<p>The study featured various outcome measures and analyses, but for the purposes of this exercise we focus on the following result:</p>
+<blockquote class="blockquote">
+<p>As predicted, participants in the flag-prime condition (<span class="math inline">\(M = 0.072, SD = 0.47\)</span>) reported a greater intention to vote for McCain than did participants in the control condition <span class="math inline">\((M = -0.070, SD = 0.48), t(181) = 2.02, p = .04, d = 0.298)\)</span>.</p>
+</blockquote>
+<p>We assume that the total sample size was 183, and that there were 92 people in the flag-prime condition and 91 in the control condition. How strong is the evidence that corresponds to this <span class="math inline">\(p=.04\)</span> result?</p>
+<ul>
+<li>JASP file with only the results: https://osf.io/tm6us/</li>
+<li>JASP file with results and interpretation/solutions: https://osf.io/3f47y/</li>
+</ul>
+<ol type="1">
+<li>Use the <em>Summary Stats</em> module in JASP to conduct a two-sided Bayesian independent samples <span class="math inline">\(t\)</span>-test. Interpret the strength of evidence. Additionally, produce a plot of the prior and posterior distribution for the standardized effect size.</li>
+<li>Compare the Bayesian result from the previous question to the frequentist p-value. What is the p-value here? Does this p-value lead to a different conclusion? Assume an <span class="math inline">\(\alpha\)</span> level of 0.05.</li>
+<li>Since the authors’ hypothesis is clearly directional, conduct a one-sided Bayesian independent samples <span class="math inline">\(t\)</span>-test (where the alternative hypothesis states that the flag group scored greater than the control group). Interpret the strength of evidence for the authors’ claim.</li>
+<li>Conduct a Bayes factor robustness check analysis to investigate the strength of evidence for the authors’ claim across a number of different prior settings. What is the most evidence we could have in favor of the one-sided alternative hypothesis?</li>
+<li>Discuss your results with your classmate/neighbor/cat – do they agree?</li>
+</ol>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-CarterEtAl2011" class="csl-entry" role="listitem">
+Carter, T. J., M. J. Ferguson, and R. R. Hassin. 2011. <span>“A Single Exposure to the American Flag Shifts Support Toward Republicanism up to 8 Months Later.”</span> <em>Psychological Science</em> 22: 1011–18.
+</div>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./05-more-tests.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">More Bayesian Analyses</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
