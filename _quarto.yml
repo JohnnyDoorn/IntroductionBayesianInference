@@ -14,6 +14,7 @@ book:
     - 04-beer.qmd
     - 05-more-tests.qmd
     - 06-exercises.qmd
+    - 07-anova.qmd
 output-dir: docs
 bibliography:
   - book.bib
