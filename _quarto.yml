@@ -6,6 +6,7 @@ book:
   subtitle: "From Tea to Beer"
   author: "Johnny van Doorn"
   date: today
+  date-format: D MMMM, YYYY
   chapters:
     - index.qmd
     - 01-intro.qmd
