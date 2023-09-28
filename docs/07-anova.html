@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>A Brief Introduction to Bayesian Inference - 1&nbsp; The Lady Tasting Tea</title>
+<title>A Brief Introduction to Bayesian Inference - 7&nbsp; ANOVA (under construction…)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -49,8 +49,7 @@ div.csl-indent {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./02-models.html" rel="next">
-<link href="./index.html" rel="prev">
+<link href="./06-exercises.html" rel="prev">
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -94,7 +93,7 @@ div.csl-indent {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./01-intro.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./07-anova.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA (under construction...)</span></a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -127,7 +126,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./01-intro.html" class="sidebar-item-text sidebar-link active">
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></span></a>
   </div>
 </li>
@@ -163,7 +162,7 @@ div.csl-indent {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./07-anova.html" class="sidebar-item-text sidebar-link">
+  <a href="./07-anova.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA (under construction…)</span></span></a>
   </div>
 </li>
@@ -173,21 +172,14 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#a-bayesian-version" id="toc-a-bayesian-version" class="nav-link active" data-scroll-target="#a-bayesian-version"><span class="header-section-number">1.1</span> A Bayesian Version</a></li>
-  <li><a href="#an-alcoholic-version" id="toc-an-alcoholic-version" class="nav-link" data-scroll-target="#an-alcoholic-version"><span class="header-section-number">1.2</span> An Alcoholic Version</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></h1>
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA (under construction…)</span></h1>
 </div>
 
 
@@ -202,51 +194,20 @@ div.csl-indent {
 
 </header>
 
-<p>Over 80 years ago, Sir Ronald Fisher conducted the famous experiment “The Lady Tasting Tea” in order to test whether his colleague, Dr.&nbsp;Muriel Bristol, could taste if the tea infusion or the milk had been added to the cup first <span class="citation" data-cites="fisher1937design">(<a href="#ref-fisher1937design" role="doc-biblioref">Fisher 1937, p11</a>)</span>. Dr.&nbsp;Bristol was presented with eight cups of tea and the knowledge that four of these had the milk poured in first. Dr.&nbsp;Bristol was then asked to identify these four cups. Fisher analyzed the results using null hypothesis significance testing:</p>
-<ol type="1">
-<li>assume the null hypothesis to be true (i.e., Dr.&nbsp;Bristol lacks any ability to discriminate the cups);</li>
-<li>calculate the probability of encountering results at least as extreme as those observed;</li>
-<li>if that probability is sufficiently low, consider the null hypothesis discredited.</li>
-</ol>
-<p>This probability is now known as the <span class="math inline">\(p\)</span>-value and it features in many statistical analyses across empirical sciences.</p>
-<section id="a-bayesian-version" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="a-bayesian-version"><span class="header-section-number">1.1</span> A Bayesian Version</h2>
-<p>Decades later, Dennis <span class="citation" data-cites="Lindley1993">Lindley (<a href="#ref-Lindley1993" role="doc-biblioref">1993</a>)</span> used an experimental procedure similar to that of Fisher to highlight some limitations of the <span class="math inline">\(p\)</span>-value paradigm. Specifically, the calculation of the <span class="math inline">\(p\)</span>-value depends on the sampling plan, that is, the with which the data were collected. Consider the Lindley setup: Dr.&nbsp;Bristol is offered six pairs of cups, where each pair consists of a cup where the tea was poured first, and a cup where the milk was poured first. She is then asked to judge, for each pair, which cup has had the tea added first. A possible outcome is the sequence RRRRRW, indicating that she was right for the first five pairs, and wrong for the last pair. However, as Lindley demonstrated, the original sampling plan is crucial in calculating the <span class="math inline">\(p\)</span>-value because the <span class="math inline">\(p\)</span>-value depends on hypothetical outcomes that are “more extreme.”</p>
-<p>Was the goal to have the Dr.&nbsp;Bristol taste six pairs of cups –no more, no less– or did she need to continue until she made her first mistake? The observed data could have been the outcome of either sampling plan; yet in the former case, the <span class="math inline">\(p\)</span>-value equals <span class="math inline">\(0.109\)</span>, whereas in the latter case the <span class="math inline">\(p\)</span>-value equals <span class="math inline">\(0.031\)</span>. The difference lies in the inclusion of more extreme cases. In the “test six cups” plan, the only more extreme outcome is RRRRRR (i.e., she correctly identified all 6 cups), whereas for the “test until error” plan the more extreme outcomes include sequences such as RRRRRRW and RRRRRRRW (i.e., 6 and 7 correct responses, before a single incorrect response)<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. It seems undesirable that the <span class="math inline">\(p\)</span>-value depends on hypothetical outcomes that are in turn determined by the sampling plan. Harold Jeffreys summarized: ``What the use of <span class="math inline">\(p\)</span> implies, therefore, is that a hypothesis that may be true may be rejected because it has not predicted observable results that have not occurred. This seems a remarkable procedure.” <span class="citation" data-cites="Jeffreys1961">(<a href="#ref-Jeffreys1961" role="doc-biblioref">Jeffreys 1961, p385</a>)</span>.</p>
-<p>This drawback is one of the reasons (for more critique see <span class="citation" data-cites="Wasserstein2016 BenjaminEtAl2018">(<a href="#ref-Wasserstein2016" role="doc-biblioref">Wasserstein and Lazar 2016</a>; <a href="#ref-BenjaminEtAl2018" role="doc-biblioref">Benjamin et al. 2018</a>)</span>) why Bayesian inference has become more popular in the past years as an alternative framework for hypothesis testing and parameter estimation.</p>
-</section>
-<section id="an-alcoholic-version" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="an-alcoholic-version"><span class="header-section-number">1.2</span> An Alcoholic Version</h2>
-<p>In this text we revisit Fisher’s experimental paradigm to demonstrate several key concepts of Bayesian inference, specifically the prior distribution, the posterior distribution, the Bayes factor, and sequential analysis. Furthermore, we highlight the advantages of Bayesian inference, such as its straightforward interpretation, the ability to monitor the result in real-time, and the irrelevance of the sampling plan. For concreteness, we analyze the outcome of a tasting experiment that featured 57 staff members and students of the Psychology Department at the University of Amsterdam; these participants were asked to distinguish between the alcoholic and non-alcoholic version of the Weihenstephaner Hefeweissbier, a German wheat beer. We analyze and present the results in the open-source statistical software JASP <span class="citation" data-cites="JASP2022">(<a href="#ref-JASP2022" role="doc-biblioref">JASP Team 2022</a>)</span>.</p>
+<blockquote class="blockquote">
+<p>This chapter is based on a Bayesian ANOVA tutorial article by <span class="citation" data-cites="vanDenBerghDoorn2020">van den Bergh et al. (<a href="#ref-vanDenBerghDoorn2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/spreb/download?format=pdf">here</a> or viewed <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm">here</a>) and an introduction to Bayesian model averaging by <span class="citation" data-cites="hinne2020">Hinne et al. (<a href="#ref-hinne2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/wgb64/download">here</a> or viewed <a href="https://journals.sagepub.com/doi/full/10.1177/2515245919898657">here</a>).</p>
+</blockquote>
+<p>So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., <span class="math inline">\(\theta\)</span> for the binomial test, <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(t\)</span>-tests, or <span class="math inline">\(\rho\)</span> for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., <a href="05-more-tests.html#fig-beer-tastiness-correlation-posterior">Figure&nbsp;<span>5.9</span></a>)</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-BenjaminEtAl2018" class="csl-entry" role="listitem">
-Benjamin, D. J., J. O. Berger, M. Johannesson, B. A. Nosek, E.–J. Wagenmakers, R. Berk, K. A. Bollen, et al. 2018. <span>“Redefine Statistical Significance.”</span> <em>Nature Human Behaviour</em> 2: 6–10.
+<div id="ref-hinne2020" class="csl-entry" role="listitem">
+Hinne, Max, Quentin F Gronau, Don van den Bergh, and Eric-Jan Wagenmakers. 2020. <span>“A Conceptual Introduction to <span>B</span>ayesian Model Averaging.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3: 200–215.
 </div>
-<div id="ref-fisher1937design" class="csl-entry" role="listitem">
-Fisher, Ronald Aylmer. 1937. <em>The Design of Experiments</em>. Oliver And Boyd; Edinburgh; London.
-</div>
-<div id="ref-JASP2022" class="csl-entry" role="listitem">
-JASP Team. 2022. <span>“<span class="nocase">JASP (Version 0.16.3)[Computer software]</span>.”</span> <a href="https://jasp-stats.org/">https://jasp-stats.org/</a>.
-</div>
-<div id="ref-Jeffreys1961" class="csl-entry" role="listitem">
-Jeffreys, H. 1961. <em>Theory of Probability</em>. 3rd ed. Oxford, UK: Oxford University Press.
-</div>
-<div id="ref-Lindley1993" class="csl-entry" role="listitem">
-Lindley, D. V. 1993. <span>“The Analysis of Experimental Data: <span>T</span>he Appreciation of Tea and Wine.”</span> <em>Teaching Statistics</em> 15: 22–25.
-</div>
-<div id="ref-Wasserstein2016" class="csl-entry" role="listitem">
-Wasserstein, R. L., and N. A. Lazar. 2016. <span>“The <span>ASA</span>’s Statement on p–Values: Context, Process, and Purpose.”</span> <em>The American Statistician</em> 70: 129–33.
+<div id="ref-vanDenBerghDoorn2020" class="csl-entry" role="listitem">
+van den Bergh, Don, Johnny Van Doorn, Maarten Marsman, Tim Draws, Erik-Jan Van Kesteren, Koen Derks, Fabian Dablander, et al. 2020. <span>“A Tutorial on Conducting and Interpreting a Bayesian ANOVA in JASP.”</span> <em>L’Ann<span>é</span>e Psychologique/Topics in Cognitive Psychology.</em> 120: 73–96.
 </div>
 </div>
-</section>
-<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn1"><p>A more technical way of describing the difference between the two setups is that data from the “test six cups” follow the binomial distribution, whereas data from the “test until error” follow the negative binomial distribution.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -484,14 +445,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="./index.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      <a href="./06-exercises.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./02-models.html" class="pagination-link">
-        <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is a Model?</span></span> <i class="bi bi-arrow-right-short"></i>
-      </a>
   </div>
 </nav>
 </div> <!-- /content -->

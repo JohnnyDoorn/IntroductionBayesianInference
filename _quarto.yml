@@ -1,5 +1,6 @@
 project:
   type: book
+  output-dir: docs
 
 book:
   title: "A Brief Introduction to Bayesian Inference"
@@ -16,7 +17,7 @@ book:
     - 05-more-tests.qmd
     - 06-exercises.qmd
     - 07-anova.qmd
-output-dir: docs
+
 bibliography:
   - book.bib
   - packages.bib
