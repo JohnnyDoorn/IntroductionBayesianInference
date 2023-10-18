@@ -1,5 +1,23 @@
 # ANOVA (under construction...)
 
->This chapter is based on a Bayesian ANOVA tutorial article by @vanDenBerghDoorn2020 (downloaded [here](https://psyarxiv.com/spreb/download?format=pdf) or viewed [here](https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm)) and an introduction to Bayesian model averaging by @hinne2020 (downloaded [here](https://psyarxiv.com/wgb64/download) or viewed [here](https://journals.sagepub.com/doi/full/10.1177/2515245919898657)).
+>This chapter is based on a Bayesian ANOVA tutorial article by @vanDenBerghDoorn2020 (downloaded [here](https://psyarxiv.com/spreb/download?format=pdf) or viewed [here](https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm)).
 
-So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., $\theta$ for the binomial test, $\delta$ for the $t$-tests, or $\rho$ for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., @fig-beer-tastiness-correlation-posterior)
+<!-- and an introduction to Bayesian model averaging by @hinne2020 (downloaded [here](https://psyarxiv.com/wgb64/download) or viewed [here](https://journals.sagepub.com/doi/full/10.1177/2515245919898657)) -->
+
+So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., $\theta$ for the binomial test, $\delta$ for the $t$-tests, or $\rho$ for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., @fig-beer-tastiness-correlation-posterior). For more complex scenario's (i.e., with more predictor variables), many different models can be constructed, each with multiple parameters. In this chapter, we will shine a Bayesian light on the ANOVA, and see how the Analysis of Variance can benefit from the Bayesian tools we have discussed so far. 
+
+In  @sec-bayesian-ttest, the Bayesian $t$-test was introduced. Since a difference in means (standardized or not) is on a continuous scale, without hard bounds (as opposed to the correlation, or proportion), the type of distribution that was used to characterize each model's predictions was the Cauchy distribution. For the $t$-test, there is only one parameter needed to model the difference between two groups. For instance, if we stick to the beer example, and we are trying to model the tastiness ratings ($y$) by looking at whether the beer contained alcohol, or not ($x = 1$ for alcoholic, while $x = 0$ for non-alcoholic). We can now write the $t$-test model as a linear regression, where we model the outcome variable $y$ as a function of an intercept ($b_0$) and a single regression coefficient that models the group difference ($b_1$):^[For an extra primer on how to write ANOVA as a regression, please read [here](https://johnnydoorn.github.io/statistics-lectures/courses/SSR/SSR_2023-2024/MiscFiles_J/PredictingWithDummies)]
+$$ y_i = b_0 + b_1 \times x_i. $$
+By modeling tastiness rating as such, the variable $x$ determines whether we add $b_1$ or not: if it equals 1 (alcoholic beer), then our prediction equals $b_0 + b_1$; if it equals 0 (non-alcoholic beer), our prediction equals $b_0$. As such, the parameter $b_1$ determines the group difference: we can employ a hypothesis test to see if $b_1$ equals 0 or not and therefore whether the tastiness ratings meaningfully differ between the two conditions. Our hypotheses are as follows, with the alternative hypothesis' predictions characterized by a Cauchy distribution, with its scale set to 0.707:
+$$\mathcal{H_0}: b_1 = 0 $$
+$$\mathcal{H_0}: b_1 \sim Cauchy(0.707).$$
+In @sec-bayesian-ttest we saw how the Cauchy prior can be specified, how to test these hypotheses through the Bayes factor, and how to interpret the posterior distribution for parameter estimation. What we will do the coming section, is expand on this idea of modeling differences between groups, and generalize it to allow for more than 2 groups, and more than 1 predictor variable. 
+
+## The Example
+
+
+
+
+
+
+

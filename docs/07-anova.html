@@ -172,7 +172,13 @@ div.csl-indent {
 <div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-example" id="toc-the-example" class="nav-link active" data-scroll-target="#the-example"><span class="header-section-number">7.1</span> The Example</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -195,19 +201,27 @@ div.csl-indent {
 </header>
 
 <blockquote class="blockquote">
-<p>This chapter is based on a Bayesian ANOVA tutorial article by <span class="citation" data-cites="vanDenBerghDoorn2020">van den Bergh et al. (<a href="#ref-vanDenBerghDoorn2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/spreb/download?format=pdf">here</a> or viewed <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm">here</a>) and an introduction to Bayesian model averaging by <span class="citation" data-cites="hinne2020">Hinne et al. (<a href="#ref-hinne2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/wgb64/download">here</a> or viewed <a href="https://journals.sagepub.com/doi/full/10.1177/2515245919898657">here</a>).</p>
+<p>This chapter is based on a Bayesian ANOVA tutorial article by <span class="citation" data-cites="vanDenBerghDoorn2020">van den Bergh et al. (<a href="#ref-vanDenBerghDoorn2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/spreb/download?format=pdf">here</a> or viewed <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm">here</a>).</p>
 </blockquote>
-<p>So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., <span class="math inline">\(\theta\)</span> for the binomial test, <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(t\)</span>-tests, or <span class="math inline">\(\rho\)</span> for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., <a href="05-more-tests.html#fig-beer-tastiness-correlation-posterior">Figure&nbsp;<span>5.9</span></a>)</p>
+<!-- and an introduction to Bayesian model averaging by @hinne2020 (downloaded [here](https://psyarxiv.com/wgb64/download) or viewed [here](https://journals.sagepub.com/doi/full/10.1177/2515245919898657)) -->
+<p>So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., <span class="math inline">\(\theta\)</span> for the binomial test, <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(t\)</span>-tests, or <span class="math inline">\(\rho\)</span> for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., <a href="05-more-tests.html#fig-beer-tastiness-correlation-posterior">Figure&nbsp;<span>5.9</span></a>). For more complex scenario’s (i.e., with more predictor variables), many different models can be constructed, each with multiple parameters. In this chapter, we will shine a Bayesian light on the ANOVA, and see how the Analysis of Variance can benefit from the Bayesian tools we have discussed so far.</p>
+<p>In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a>, the Bayesian <span class="math inline">\(t\)</span>-test was introduced. Since a difference in means (standardized or not) is on a continuous scale, without hard bounds (as opposed to the correlation, or proportion), the type of distribution that was used to characterize each model’s predictions was the Cauchy distribution. For the <span class="math inline">\(t\)</span>-test, there is only one parameter needed to model the difference between two groups. For instance, if we stick to the beer example, and we are trying to model the tastiness ratings (<span class="math inline">\(y\)</span>) by looking at whether the beer contained alcohol, or not (<span class="math inline">\(x = 1\)</span> for alcoholic, while <span class="math inline">\(x = 0\)</span> for non-alcoholic). We can now write the <span class="math inline">\(t\)</span>-test model as a linear regression, where we model the outcome variable <span class="math inline">\(y\)</span> as a function of an intercept (<span class="math inline">\(b_0\)</span>) and a single regression coefficient that models the group difference (<span class="math inline">\(b_1\)</span>):<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[ y_i = b_0 + b_1 \times x_i. \]</span> By modeling tastiness rating as such, the variable <span class="math inline">\(x\)</span> determines whether we add <span class="math inline">\(b_1\)</span> or not: if it equals 1 (alcoholic beer), then our prediction equals <span class="math inline">\(b_0 + b_1\)</span>; if it equals 0 (non-alcoholic beer), our prediction equals <span class="math inline">\(b_0\)</span>. As such, the parameter <span class="math inline">\(b_1\)</span> determines the group difference: we can employ a hypothesis test to see if <span class="math inline">\(b_1\)</span> equals 0 or not and therefore whether the tastiness ratings meaningfully differ between the two conditions. Our hypotheses are as follows, with the alternative hypothesis’ predictions characterized by a Cauchy distribution, with its scale set to 0.707: <span class="math display">\[\mathcal{H_0}: b_1 = 0 \]</span> <span class="math display">\[\mathcal{H_0}: b_1 \sim Cauchy(0.707).\]</span> In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a> we saw how the Cauchy prior can be specified, how to test these hypotheses through the Bayes factor, and how to interpret the posterior distribution for parameter estimation. What we will do the coming section, is expand on this idea of modeling differences between groups, and generalize it to allow for more than 2 groups, and more than 1 predictor variable.</p>
+<section id="the-example" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="the-example"><span class="header-section-number">7.1</span> The Example</h2>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
-<div id="ref-hinne2020" class="csl-entry" role="listitem">
-Hinne, Max, Quentin F Gronau, Don van den Bergh, and Eric-Jan Wagenmakers. 2020. <span>“A Conceptual Introduction to <span>B</span>ayesian Model Averaging.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 3: 200–215.
-</div>
 <div id="ref-vanDenBerghDoorn2020" class="csl-entry" role="listitem">
 van den Bergh, Don, Johnny Van Doorn, Maarten Marsman, Tim Draws, Erik-Jan Van Kesteren, Koen Derks, Fabian Dablander, et al. 2020. <span>“A Tutorial on Conducting and Interpreting a Bayesian ANOVA in JASP.”</span> <em>L’Ann<span>é</span>e Psychologique/Topics in Cognitive Psychology.</em> 120: 73–96.
 </div>
 </div>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>For an extra primer on how to write ANOVA as a regression, please read <a href="https://johnnydoorn.github.io/statistics-lectures/courses/SSR/SSR_2023-2024/MiscFiles_J/PredictingWithDummies">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
