@@ -185,6 +185,7 @@ div.csl-indent {
   <li><a href="#single-model-inference" id="toc-single-model-inference" class="nav-link" data-scroll-target="#single-model-inference"><span class="header-section-number">7.1.5</span> Single Model Inference</a></li>
   <li><a href="#model-averaging" id="toc-model-averaging" class="nav-link" data-scroll-target="#model-averaging"><span class="header-section-number">7.1.6</span> Model Averaging</a></li>
   </ul></li>
+  <li><a href="#even-more-beer-analyses---interaction-effect" id="toc-even-more-beer-analyses---interaction-effect" class="nav-link" data-scroll-target="#even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2</span> Even More Beer Analyses - Interaction Effect?!</a></li>
   </ul>
 </nav>
     </div>
@@ -364,7 +365,7 @@ div.csl-indent {
 </section>
 <section id="model-averaging" class="level3" data-number="7.1.6">
 <h3 data-number="7.1.6" class="anchored" data-anchor-id="model-averaging"><span class="header-section-number">7.1.6</span> Model Averaging</h3>
-<p>Instead of looking at a single model’s predictions, we can combine all the models into a single prediction. Since each model makes different predictions, we can combine their predictions by <strong>model averaging</strong>. This method weighs each model’s prediction by their posterior model probability, which ensures that the models that predicted the best, will also influence the model averaged predictions the most. A very silly cartoon that illustrates this concept can be found <a href="https://www.bayesianspectacles.org/wp-content/uploads/2019/03/Pandemonium.jpg">here</a>. The model averaged estimates are shown below. Since they are mostly dictated by the model with two main effects (the <em>best</em> model), these estimates do not differ so much from the previous estimates.</p>
+<p>Instead of looking at a single model’s predictions, we can combine all the models into a single prediction. Since each model makes different predictions, we can combine their predictions by <strong>model averaging</strong>. This method weighs each model’s prediction by their posterior model probability, which ensures that the models that predicted the best, will also influence the model averaged predictions the most. A very silly cartoon that illustrates this concept can be found <a href="https://www.bayesianspectacles.org/wp-content/uploads/2019/03/Pandemonium.jpg">here</a>. The model averaged estimates are shown below. Since they are mostly dictated by the model with two main effects (the <em>best</em> model), these estimates do not differ so much from the previous estimates. In the same way, we can request visual representations of these estimates by checking the option for “model averaged posteriors” (the plots might need some resizing). Alternatively, individual model’s posterior distributions can be requested in the “Single Model Inference” tab.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-beer-anova-model-averaged-estimates" class="quarto-figure quarto-figure-center anchored">
@@ -378,6 +379,12 @@ div.csl-indent {
 <section id="error-percentage" class="level4" data-number="7.1.6.1">
 <h4 data-number="7.1.6.1" class="anchored" data-anchor-id="error-percentage"><span class="header-section-number">7.1.6.1</span> Error percentage</h4>
 <p>In order to obtain the marginal likelihood and posterior distributions in the Bayesian ANOVA (and many Bayesian analyses), a type of method called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov chain Monte Carlo (MCMC) sampling</a> is used. Since these methods are sampling-based, it introduces slight variations in the results. For instance, running the same Bayesian ANOVA twice will lead to slight fluctuations in the Bayes factors. In JASP, the degree of fluctuation is indicated by the “error %” column. These percentages indicate how much the Bayes factor will fluctuate from run to run. Generally, having an error % below 20 (or 10, if you want to be more strict) is acceptable: it means that a Bayes factor of 10 will deviate between 8 and 12, which does not change its qualitative interpretation. See also <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm#no7">this footnote</a> in the tutorial paper.</p>
+</section>
+</section>
+</section>
+<section id="even-more-beer-analyses---interaction-effect" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2</span> Even More Beer Analyses - Interaction Effect?!</h2>
+<p>As practice, try adding an interaction effect between BeerType and CorrectIdentify. What do you conclude?</p>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
@@ -385,8 +392,6 @@ div.csl-indent {
 van den Bergh, Don, Johnny Van Doorn, Maarten Marsman, Tim Draws, Erik-Jan Van Kesteren, Koen Derks, Fabian Dablander, et al. 2020. <span>“A Tutorial on Conducting and Interpreting a Bayesian ANOVA in JASP.”</span> <em>L’Ann<span>é</span>e Psychologique/Topics in Cognitive Psychology.</em> 120: 73–96.
 </div>
 </div>
-</section>
-</section>
 </section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>

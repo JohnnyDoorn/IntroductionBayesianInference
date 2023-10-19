@@ -162,7 +162,7 @@ And if they would have guess incorrectly:
 $$48.4 + (-9.637) + (4.151) =  42.854$$
 
 ### Model Averaging
-Instead of looking at a single model's predictions, we can combine all the models into a single prediction. Since each model makes different predictions, we can combine their predictions by **model averaging**. This method weighs each model's prediction by their posterior model probability, which ensures that the models that predicted the best, will also influence the model averaged predictions the most. A very silly cartoon that illustrates this concept can be found [here](https://www.bayesianspectacles.org/wp-content/uploads/2019/03/Pandemonium.jpg). The model averaged estimates are shown below. Since they are mostly dictated by the model with two main effects (the *best* model), these estimates do not differ so much from the previous estimates. 
+Instead of looking at a single model's predictions, we can combine all the models into a single prediction. Since each model makes different predictions, we can combine their predictions by **model averaging**. This method weighs each model's prediction by their posterior model probability, which ensures that the models that predicted the best, will also influence the model averaged predictions the most. A very silly cartoon that illustrates this concept can be found [here](https://www.bayesianspectacles.org/wp-content/uploads/2019/03/Pandemonium.jpg). The model averaged estimates are shown below. Since they are mostly dictated by the model with two main effects (the *best* model), these estimates do not differ so much from the previous estimates. In the same way, we can request visual representations of these estimates by checking the option for "model averaged posteriors" (the plots might need some resizing). Alternatively, individual model's posterior distributions can be requested in the "Single Model Inference" tab. 
 
 ```{r fig-beer-anova-model-averaged-estimates, echo = FALSE, fig.cap = "The estimates for the model with the two predictor variables.", fig.align='center', out.width= '90%'}
 #| label: fig-beer-anova-model-averaged-estimates
@@ -173,5 +173,6 @@ knitr::include_graphics("Figures/ANOVA_ModelAveragedMainEffects.png", dpi=120)
 In order to obtain the marginal likelihood and posterior distributions in the Bayesian ANOVA (and many Bayesian analyses), a type of method called [Markov chain Monte Carlo (MCMC) sampling](https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo) is used. Since these methods are sampling-based, it introduces slight variations in the results. For instance, running the same Bayesian ANOVA twice will lead to slight fluctuations in the Bayes factors. In JASP, the degree of fluctuation is indicated by the "error %" column. These percentages indicate how much the Bayes factor will fluctuate from run to run. Generally, having an error % below 20 (or 10, if you want to be more strict) is acceptable: it means that a Bayes factor of 10 will deviate between 8 and 12, which does not change its qualitative interpretation. See also [this footnote](https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm#no7) in the tutorial paper. 
 
 
-
+## Even More Beer Analyses - Interaction Effect?!
+As practice, try adding an interaction effect between BeerType and CorrectIdentify. What do you conclude?
 
