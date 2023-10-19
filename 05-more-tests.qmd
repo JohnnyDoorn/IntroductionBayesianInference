@@ -17,7 +17,7 @@ The first question, "do people find alcoholic beer tastier?", concerns the diffe
 
 <!-- ``` -->
 
-### Prior Distribution
+### Prior Distribution {#sec-prior-ttest}
 
 The prior distribution is always defined on the same domain as the parameter of interest. For the proportion, this was the convenient domain of \[0, 1\], and so allowed the use of the beta distribution, and the possibility to use the uniform distribution as the uninformed prior distribution. The domain of $\delta$ instead goes from $-\infty$ to $\infty$, so its prior distribution has to match that domain. For a null hypothesis this does not matter so much, since the null hypothesis generally posits a single value (e.g., 0, stating there is no difference between the groups). However, for the alternative hypothesis it becomes tricky now to have a uniform distribution on the whole domain of $\delta$. Since the domain is infinitely big, the density of a uniform distribution between $-\infty$ and $\infty$ would need to be infinitely small, which is not very practical. Instead, what is generally done is to apply a probability distribution that is spread out a little less (although still a lot more than a point null hypothesis). One such distribution is the [Cauchy distribution](https://en.wikipedia.org/wiki/Cauchy_distribution), which is a $t$ distribution with a single degree of freedom. The width of the Cauchy distribution is determined by the **Cauchy scale parameter**. Below, several examples are given:
 

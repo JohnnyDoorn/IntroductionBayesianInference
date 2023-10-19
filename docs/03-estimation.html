@@ -145,7 +145,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./07-anova.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA (under construction…)</span></span></a>
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA (draft)</span></span></a>
   </div>
 </li>
     </ul>
@@ -162,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#updating-beliefs" id="toc-updating-beliefs" class="nav-link" data-scroll-target="#updating-beliefs"><span class="header-section-number">3.2</span> Updating Beliefs</a>
   <ul class="collapse">
   <li><a href="#the-likelihood" id="toc-the-likelihood" class="nav-link" data-scroll-target="#the-likelihood"><span class="header-section-number">3.2.1</span> The Likelihood</a></li>
-  <li><a href="#the-marginal-likelihood" id="toc-the-marginal-likelihood" class="nav-link" data-scroll-target="#the-marginal-likelihood"><span class="header-section-number">3.2.2</span> The Marginal Likelihood</a></li>
+  <li><a href="#sec-marginal-likelihood" id="toc-sec-marginal-likelihood" class="nav-link" data-scroll-target="#sec-marginal-likelihood"><span class="header-section-number">3.2.2</span> The Marginal Likelihood</a></li>
   </ul></li>
   <li><a href="#updated-beliefs" id="toc-updated-beliefs" class="nav-link" data-scroll-target="#updated-beliefs"><span class="header-section-number">3.3</span> Updated Beliefs</a></li>
   <li><a href="#more-models" id="toc-more-models" class="nav-link" data-scroll-target="#more-models"><span class="header-section-number">3.4</span> More Models</a>
@@ -250,8 +250,8 @@ ul.task-list li input[type="checkbox"] {
 <p>As you can see, the likelihood is the greatest for <span class="math inline">\(\theta = 0.8\)</span>. This makes sense because the observed proportion is equal to <span class="math inline">\(0.8\)</span>. In short, this likelihood function depicts how well each possible value of <span class="math inline">\(\theta\)</span> predicted the observed data. In the previous section we saw two people who postulated only a single value for <span class="math inline">\(\theta\)</span>. The likelihoods of their models can also be read from the above graph: Sarah (<span class="math inline">\(P(\text{data} \mid \theta = 0.5) =\)</span> 0.0439) and Paul (<span class="math inline">\(P(\text{data} \mid \theta = 0.8) =\)</span> 0.302).</p>
 <p>It is important to note that the likelihood is <strong>not</strong> a probability distribution: its surface area does not sum to 1, and we therefore cannot use it to make probabilistic statements about the parameter (we can use the posterior distribution for this, at the end of this section).</p>
 </section>
-<section id="the-marginal-likelihood" class="level3" data-number="3.2.2">
-<h3 data-number="3.2.2" class="anchored" data-anchor-id="the-marginal-likelihood"><span class="header-section-number">3.2.2</span> The Marginal Likelihood</h3>
+<section id="sec-marginal-likelihood" class="level3" data-number="3.2.2">
+<h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-marginal-likelihood"><span class="header-section-number">3.2.2</span> The Marginal Likelihood</h3>
 <p>Now we can take a look at the second part of the updating factor: <span class="math inline">\(p( \text{data})\)</span>. This part is known as the <strong>marginal likelihood</strong>. In contrast to the first part, the marginal likelihood is a single number. Namely, it is the average of all the likelihoods, where the likelihood of each value is weighted by the prior belief placed on that value by the model. This is the same procedure as in the previous chapter (see <a href="02-models.html#sec-more-models"><span>Section&nbsp;2.3</span></a>). In fact, for all of the models, the marginal likelihood was indicated by the yellow bar: it is the likelihood of the observed data, weighted by each model’s specific beliefs. In the case of Alex’ model, the prior belief is equal across all values, so the marginal likelihood is “simply” the average likelihood.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> In this case, the marginal likelihood is equal to 0.0909 - precisely the height of the yellow bar in <a href="02-models.html#fig-uninformed-model-binomial-prediction">Figure&nbsp;<span>2.6</span></a>.</p>
 <p>We can use this average likelihood to see which possible values of <span class="math inline">\(\theta\)</span> predicted the data better than average, and which values predicted the data worse than average: since the likelihood reflects the predictive quality of each value, the marginal likelihood reflects the average quality across all values. In the following figure, you can again see the likelihood function from <a href="#fig-likelihood-binomial-8-heads">Figure&nbsp;<span>3.2</span></a>, but now with the marginal likelihood added:</p>
 <div class="cell" data-layout-align="center">
@@ -337,7 +337,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 </div>
-<p>Just as before, we start with the prior beliefs, update these with the updating factor (which values in the model predicted the data better/worse than average?), to form posterior beliefs. The difference between the different models lies in their different starting points (prior beliefs), but also their updating factor differs. Specifically, the likelihood stays the same (<a href="#fig-likelihood-binomial-8-heads">Figure&nbsp;<span>3.2</span></a>), but the marginal likelihood differs. As we see in <a href="02-models.html#fig-two-models-binomial-onesided-predictions">Figure&nbsp;<span>2.5</span></a>, David’s marginal likelihood for the outcome of 8 heads is approximately 0.172.</p>
+<p>Just as before, we start with the prior beliefs, update these with the updating factor (which values in the model predicted the data better/worse than average?), to form posterior beliefs. The difference between the different models lies in their different starting points (prior beliefs), but also their updating factor differs. Specifically, the likelihood stays the same (<a href="#fig-likelihood-binomial-8-heads">Figure&nbsp;<span>3.2</span></a>), but the marginal likelihood differs. As we see in <a href="02-models.html#fig-two-models-binomial-onesided-predictions">Figure&nbsp;<span>2.5</span></a>, David’s marginal likelihood for the outcome of 8 heads is approximately 0.174.</p>
 <p>In the previous chapter we saw how we can use the ratio of the marginal likelihoods of two models (i.e., the Bayes factor) to do model comparison. In this chapter we focus on individual models and how they estimate/learn about the parameter. In that context we use the marginal likelihood to see which parameter values in the model predicted the data better/worse than average, in order to see which values receive a boost/penalty in plausibility. The figure below illustrates this mechanism - note that the likelihood is exactly the same as for other models, but the marginal likelihood (indicated by the purple bar) is different.</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
