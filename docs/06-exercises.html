@@ -219,15 +219,16 @@ div.csl-indent {
 </header>
 
 <p>Below you will find various exercises on the intricate world of Bayesian inference, testing your knowledge and intuition about Bayesian parameter estimation and Bayesian hypothesis testing in the context of various statistical tests (binomial test, correlation, <span class="math inline">\(t\)</span>-test). The exercises use statistical software <a href="https://jasp-stats.org">JASP</a>. Each exercise lists links to webpages with either only JASP output (so you can also complete the exercises without installing JASP), or with annotated JASP output containing the solutions/explanation to the exercises (and additional ramblings that hopefully provide some extra intuition).</p>
-<p>If you want to conduct an analysis in JASP, but get stuck, you can consult <a href="https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ">this playlist with 3 instructional videos (one for each of the analyses below)</a>. Additionally, you can consult the <a href="https://jasp-stats.org/how-to-use-jasp/">How to Use JASP page</a>.</p>
+<p>If you want to conduct an analysis in JASP, but get stuck, you can consult <a href="https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ">this playlist with 3 instructional videos (one for each of the analyses below)</a>. Additionally, you can consult the <a href="https://jasp-stats.org/how-to-use-jasp/">How to Use JASP page</a>, for instance to see <a href="https://jasp-stats.org/wp-content/uploads/2022/11/DataLibraryRegression.gif">how to load a data file from the data library</a>.</p>
 <section id="binomial-test" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="binomial-test"><span class="header-section-number">6.1</span> Binomial Test</h2>
 <section id="therapeutic-touch" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="therapeutic-touch"><span class="header-section-number">6.1.1</span> Therapeutic Touch</h3>
 <p>Therapeutic Touch (TT) is a nursing practice rooted in mysticism but alleged to have a scientific basis. Practitioners of TT claim to treat medical conditions by using their hands to manipulate a “human energy field” perceptible above the patients’ skin. Being a skeptical mind, 9-year old Emily Rosa ventured to test these claims by designing an experiment where TT practitioners had to correctly identify the location of the experimenter’s hand (above their left or right hand) while being blinded by a screen. The results of this experiment were later published in the prestigious Journal of the American Medical Association (Rosa et al., 1998). In the following exercise, you will evaluate this data set with JASP.</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_Results.html">JASP output with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_Results.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>Open the “Emily Rosa” dataset from the JASP Data Library (you can find it in the folder “Frequencies”). Alternatively, use the link above to view the results without using JASP.</li>
@@ -252,9 +253,10 @@ div.csl-indent {
 </ul>
 <p>In this exercise, you will conduct a Bayesian binomial test to analyze the proportion of correct responses.</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Data.csv">csv file with the data</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Results.html">JASP output with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Data.csv">csv file with the data</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Results.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>Download the csv file from the OSF and open the data in JASP. Alternatively, use the link above to view the results without using JASP.</li>
@@ -273,8 +275,9 @@ div.csl-indent {
 <h3 data-number="6.2.1" class="anchored" data-anchor-id="correlation-a.w.e.s.o.m.-o-4000"><span class="header-section-number">6.2.1</span> Correlation: A.W.E.S.O.M.-O 4000</h3>
 <p>In South Park episode 116, one of the series’ main protagonists, Eric Cartman, pretends to be a robot from Japan, the “A.W.E.S.O.M.-O 4000”. When kidnapped by Hollywood movie producers and put under pressure to generate profitable movie concepts, Cartman manages to generate thousands of silly ideas, 800 of which feature Adam Sandler. We conjecture that the makers of South Park believe that Adam Sandler movies are profitable regardless of their quality. In this exercise, we put forward the following South Park hypothesis: “For Adam Sandler movies, there is no correlation between box-office success and movie quality (i.e.,”freshness” ratings on Rotten Tomatoes; www.rottentomatoes.com).”</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/AdamSandler_Results.html">JASP file with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/AdamSandler_ResultsExplanation.html">JASP file with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/AdamSandler_Results.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/AdamSandler_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/AdamSandler_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>Open the “Adam Sandler” dataset from the JASP Data Library (you can find it in the folder “Regression”).</li>
@@ -296,8 +299,9 @@ div.csl-indent {
 <h3 data-number="6.3.1" class="anchored" data-anchor-id="the-effect-of-directed-reading-exercises"><span class="header-section-number">6.3.1</span> The Effect of Directed Reading Exercises</h3>
 <p>A teacher believes that directed reading activities in the classroom can improve the reading ability of elementary school children. She convinces her colleagues to give her the chance to try out the new method on a random sample of 21 third-graders. After they participated for 8 weeks in the program, the children take the Degree of Reading Power test (DRP). Their scores are compared to a control group of 23 children who took the test on the same day and followed the same curriculum apart from the reading activities. In the following exercise, you will evaluate this dataset with JASP.</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/DirectedReading_Results.html">JASP file with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/DirectedReading_ResultsExplanation.html">JASP file with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/DirectedReading_Results.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/DirectedReading_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/DirectedReading_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>Open the “Directed Reading Activities” dataset from the JASP Data Library (you can find it in the folder “T-Tests”).</li>
@@ -332,9 +336,10 @@ div.csl-indent {
 </ul>
 <p>In this exercise, we revisit this data set but instead apply a series of <span class="math inline">\(t\)</span>-tests in order to answer two questions. First, was there a meaningful difference in confidence between people that were correct and people that were incorrect? Second, did people like the alcoholic beer better than the non-alcoholic beer?</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Data.csv">csv file with the data</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_TTestResults.html">JASP output with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_TTestResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Data.csv">csv file with the data</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_TTestResults.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_TTestResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_TTestResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>What sort of <span class="math inline">\(t\)</span>-test (e.g., independent samples or paired samples) do we need for the first research question? And for the second research question?</li>
@@ -363,8 +368,9 @@ div.csl-indent {
 </blockquote>
 <p>We assume that the total sample size was 183, and that there were 92 people in the flag-prime condition and 91 in the control condition. How strong is the evidence that corresponds to this <span class="math inline">\(p=.04\)</span> result?</p>
 <ul>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/FlagPriming_Results.html">JASP file with only the results</a></li>
-<li><a href="johnnydoorn.github.io/teaching-statistics/bayesian-exercises/FlagPriming_ResultsExplanation.html">JASP file with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/FlagPriming_Results.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/FlagPriming_ResultsExplanation.html">JASP output with results and interpretation/solutions</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/FlagPriming_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
 <li>Use the <em>Summary Stats</em> module in JASP to conduct a two-sided Bayesian independent samples <span class="math inline">\(t\)</span>-test. Interpret the strength of evidence. Additionally, produce a plot of the prior and posterior distribution for the standardized effect size.</li>
