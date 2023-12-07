@@ -10,11 +10,11 @@ An essential property of a statistical model is that it can make predictions abo
 #| label: fig-two-models-binomial
 par(mfrow = c(1, 2))
 cols <- viridis::viridis(6)
-plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Sarahs Model",
+plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Sarah's Model",
      las = 1, xlab = expression(theta), ylab = "Density")
 arrows(x0 = 0.5, x1 = 0.5, y0 = 0, y1 = 4.0, lwd = 4, col = cols[1])
 
-plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Pauls Model", 
+plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Paul's Model", 
      las = 1, xlab = expression(theta), ylab = "Density")
 arrows(x0 = 0.8, x1 = 0.8, y0 = 0, y1 = 4.0, lwd = 4, col = cols[3])
 ```
@@ -33,11 +33,11 @@ The last element to fill in is $\theta$. If we do so for Sarah, who postulates $
 par(mfrow = c(1, 2), cex.main = 0.95)
 cols <- viridis::viridis(6)
 barplot(dbinom(0:10, 10, 0.5), names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
-        main = "Likely Outcomes under Sarahs Model", col = cols[1], ylim = c(0,0.32))
+        main = "Likely Outcomes under Sarah's Model", col = cols[1], ylim = c(0,0.32))
 barplot(c(rep(0, 8), dbinom(8, 10, 0.5)), add = TRUE, col = cols[6])
 
 barplot(dbinom(0:10, 10, 0.8), names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
-        main = "Likely Outcomes under Pauls Model", col = cols[3], ylim = c(0,0.32))
+        main = "Likely Outcomes under Paul's Model", col = cols[3], ylim = c(0,0.32))
 barplot(c(rep(0, 8), dbinom(8, 10, 0.8)), add = TRUE, col = cols[6])
 
 ```
@@ -48,7 +48,7 @@ These two figures reflect likely outcomes of the experiment of flipping a coin 1
 
 ## Model Comparison {#sec-model-comparison}
 
-In the previous section we have made concrete what each of the two models predict. The models differ in their statement about $\theta$ (@fig-two-models-binomial), and therefore differ in what they deem likely outcomes (@fig-two-models-likelihoods-binomial). Now imagine that we actually gather some data by flipping a coin 10 times, and we observe 8 heads and 2 tails. @fig-two-models-likelihoods-binomial tells us that the probability of that happening under Sarahs model is `r round(dbinom(8, 10, 0.5), 4)`, while under Pauls model this is `r round(dbinom(8, 10, 0.8), 4)`. These two numbers tell us something about how well each model predicted the data, relative to each other. Specifically, the ratio of these two numbers is known as the **Bayes factor**. Here, the Bayes factor is equal to `r round(dbinom(8, 10, 0.5) / dbinom(8, 10, 0.8), 2)`, which means that the observed data are about `r round(dbinom(8, 10, 0.5) / dbinom(8, 10, 0.8), 2)` times more likely under Sarahs model than under Pauls model. The Bayes factor has a subscript that indicates what model is being compared to what: $\text{BF}_{SP}$ gives how much more likely Sarahs model is than Pauls, while $\text{BF}_{PS}$ gives how much more likely Pauls is than Sarahs. To go from $\text{BF}_{SP}$ to $\text{BF}_{PS}$, you simply take 1 divided by the other: $\text{BF}_{PS}$ = $\frac{1}{\text{BF}_{SP}}$ = `r round(dbinom(8, 10, 0.8) / dbinom(8, 10, 0.5), 3)`. So saying that the data are `r round(dbinom(8, 10, 0.8) / dbinom(8, 10, 0.5), 3)` times more likely under Pauls model than Sarahs model is exactly the same. Generally, it is a bit easier to communicate the Bayes factor that is $>1$, using the appropriate subscript.
+In the previous section we have made concrete what each of the two models predict. The models differ in their statement about $\theta$ (@fig-two-models-binomial), and therefore differ in what they deem likely outcomes (@fig-two-models-likelihoods-binomial). Now imagine that we actually gather some data by flipping a coin 10 times, and we observe 8 heads and 2 tails. @fig-two-models-likelihoods-binomial tells us that the probability of that happening under Sarah's model is `r round(dbinom(8, 10, 0.5), 4)`, while under Paul's model this is `r round(dbinom(8, 10, 0.8), 4)`. These two numbers tell us something about how well each model predicted the data, relative to each other. Specifically, the ratio of these two numbers is known as the **Bayes factor**. Here, the Bayes factor is equal to `r round(dbinom(8, 10, 0.5), 4)` / `r round(dbinom(8, 10, 0.8), 4)` = `r round(dbinom(8, 10, 0.5) / dbinom(8, 10, 0.8), 2)`, which means that the observed data are about `r round(dbinom(8, 10, 0.5) / dbinom(8, 10, 0.8), 2)` times more likely under Sarah's model than under Paul's model. The Bayes factor has a subscript that indicates what model is being compared to what: $\text{BF}_{SP}$ gives how much more likely Sarah's model is than Paul's, while $\text{BF}_{PS}$ gives how much more likely Paul's is than Sarah's. To go from $\text{BF}_{SP}$ to $\text{BF}_{PS}$, you simply take 1 divided by the other: $\text{BF}_{PS}$ = $\frac{1}{\text{BF}_{SP}}$ = `r round(dbinom(8, 10, 0.8) / dbinom(8, 10, 0.5), 3)`. So saying that the data are `r round(dbinom(8, 10, 0.8) / dbinom(8, 10, 0.5), 3)` times more likely under Paul's model than Sarah's model is exactly the same. Generally, it is a bit easier to communicate the Bayes factor that is $>1$, using the appropriate subscript.
 
 Lastly, it can be the case that two models predicted the data equally well. In this case the Bayes factor will be equal to 1. Generally, we want the Bayes factor to be as far away from 1 as possible, since this indicates more and more evidence in favor of one model over another. Different categorizations have been made to translate a Bayes factor into human words, to facilitate communication about degrees of evidence for/against one model respective to another. One such representation is given below in @fig-bayes-factor-classification.
 
@@ -84,11 +84,11 @@ plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Betty's M
 mySeq <- seq(0.5, 1, length.out = 1e3)
 polygon(x =  c(mySeq, rev(mySeq)), y = c(rep(0, 1e3), tBetFun(mySeq, 1, 1)), col = cols[2]) 
 
-plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Davids Model", 
+plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "David's Model", 
      las = 1, xlab = expression(theta), ylab = "Density")
 # curve(tBetFun(x, 3, 1), add = TRUE, col = cols[5], lwd = 4)
 polygon(x =  c(mySeq, rev(mySeq)), y = c(rep(0, 1e3), rev(tBetFun(mySeq, 3, 1))), col = cols[5]) 
-# plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "Davids Model", 
+# plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "David's Model", 
 #      las = 1, xlab = expression(theta), ylab = "Density")
 # # curve(tBetFun(x, 3, 1), add = TRUE, col = cols[5], lwd = 4)
 # mySeq <- seq(0, 1, length.out = 1e3)
@@ -113,7 +113,7 @@ samps <- rbeta(1e5, 3, 1)
 samps[samps<0.5] <- 1- samps[samps<0.5]
 samps <- c(0:5, rbinom(1e5, 10, samps))
 barplot(table(samps)/1e5, names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
-        main = "Likely Outcomes under Davids Model", col = cols[5], ylim = c(0,0.32))
+        main = "Likely Outcomes under David's Model", col = cols[5], ylim = c(0,0.32))
 barplot(c(rep(0, 8), (table(samps)/1e5)[9]), add = TRUE, col = cols[6])
 # (table(samps)/1e5)[9] /(table(sampsU)/1e5)[9]
 
@@ -121,7 +121,7 @@ barplot(c(rep(0, 8), (table(samps)/1e5)[9]), add = TRUE, col = cols[6])
 # samps[samps<0.5] <- 1- samps[samps<0.5]
 # samps <- c(0:5, rbinom(1e5, 10, samps))
 # barplot(table(samps)/1e5, names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
-#         main = "Likely Outcomes under Davids Model", col = cols[5], ylim = c(0,0.32))
+#         main = "Likely Outcomes under David's Model", col = cols[5], ylim = c(0,0.32))
 # barplot(c(rep(0, 4), (table(samps)/1e5)[5]), add = TRUE, col = cols[6])
 
 ```
