@@ -180,7 +180,7 @@ In other words, Sarah's prior belief about $\theta$ was quite fanatical. The pri
 \overbrace{\underbrace{\frac{p( \text{data} \mid \theta)}{p( \text{data})}}}^{\substack{\text{Prediction for specific }\theta }}_{\substack{\text{Average prediction} \\\text{across all }  \theta's}}.
 \end{align}
 
-Since Sarah's prior density for any value that is not 0.5, is equal to 0, that means that the posterior density for those values will also be 0. Because of the multiplication by 0, the updating factor is therefore completely ignored. As for the pior density at the value 0.5 - it too gets mutliplied by the updating factor, but just as anything multiplied by 0 is 0, anything multiplied by infinity is infinity. In other words, a model like Sarah's is completely blind to the data, since she is alread so convinced that $\theta = 0.5$.[^03-estimation-6] The posterior will therefore be exactly the same as in fig-sarah-model-binomial above.
+Since Sarah's prior density for any value that is not 0.5, is equal to 0, that means that the posterior density for those values will also be 0. Because of the multiplication by 0, the updating factor is therefore completely ignored. As for the pior density at the value 0.5 - it too gets mutliplied by the updating factor, but just as anything multiplied by 0 is 0, anything multiplied by infinity is infinity. In other words, a model like Sarah's is completely blind to the data, since she is alread so convinced that $\theta = 0.5$.[^03-estimation-6] The posterior will therefore be exactly the same as in @fig-sarah-model-binomial above.
 
 [^03-estimation-6]: I feel like there is a real-life analogue to be found here somewhere...
 

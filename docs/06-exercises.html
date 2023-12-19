@@ -242,7 +242,7 @@ div.csl-indent {
 </section>
 <section id="psychologists-tasting-beer" class="level3" data-number="6.1.2">
 <h3 data-number="6.1.2" class="anchored" data-anchor-id="psychologists-tasting-beer"><span class="header-section-number">6.1.2</span> Psychologists Tasting Beer</h3>
-<p>Friday afternoon, May 12th 2017, an informal beer tasting experiment took place at the Department of Psychology, University of Amsterdam. The experiment was preregistered, the OSF directory with background information is https://osf.io/m3ju9/, and the corresponding article can be found on <a href="https://psyarxiv.com/d8bvn/">PsyArxiv</a>.</p>
+<p>Friday afternoon, May 12th 2017, an informal beer tasting experiment took place at the Department of Psychology, University of Amsterdam. The experiment was preregistered, the OSF directory with background information is <a href="https://osf.io/m3ju9/">here</a>, and the corresponding article can be found on <a href="https://psyarxiv.com/d8bvn/">PsyArxiv</a>.</p>
 <p>Short description: Each participant was (blinded) given two cups of Weihestephan Hefeweissbier, one cup with the regular variety, one cup with the non-alcoholic version. Participants had to indicate which cup contained the alcohol, the confidence in their judgment, and an assessment of how much they liked the beer. The data set contains the following variables:</p>
 <ul>
 <li>AlcBeerFist: 1 = alcoholic version was tasted first; 0 = alcoholic version was tasted second. This is not likely to matter, as participants were allowed to sample the cups at will.</li>
@@ -261,7 +261,7 @@ div.csl-indent {
 <ol type="1">
 <li>Download the csv file from the OSF and open the data in JASP. Alternatively, use the link above to view the results without using JASP.</li>
 <li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “CorrectIdentify”). What percentage of participants had a correct response (“1”)?</li>
-<li>Which settings can we use to specify our alternative hypothesis (see Figure @ref(fig:jasp-screenshot-binomial-test) for the available settings)? What do these settings imply?</li>
+<li>Which settings can we use to specify our alternative hypothesis (see <a href="04-beer.html#fig-jasp-screenshot-binomial-test">Figure&nbsp;<span>4.1</span></a>) for the available settings)? What do these settings imply?</li>
 <li>Using a uniform prior distribution, what are the two-sided Bayes factors (<span class="math inline">\(\text{BF}_{10}\)</span>) for the proportion of incorrect responses (“0”) and for the proportion of correct responses (“1”)? Are they equal? Explain why (not).</li>
 <li>In order to test whether people are able to taste the difference, conduct a one-sided hypothesis test to test if <span class="math inline">\(\theta &gt; 0.5\)</span>. What is the Bayes factor (<span class="math inline">\(\text{BF}_{+0}\)</span>)? How do you interpret this? What is your verdict on the claim that psychologists can taste the difference between alcoholic and non-alcoholic beer?</li>
 <li>Conduct a Sequential analysis to inspect how the Bayes factor developed as the data accumulated. Did it ever provide strong evidence for the null hypothesis? Around which value did the Bayes factor cross the threshold of 100?</li>
