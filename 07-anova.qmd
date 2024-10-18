@@ -1,4 +1,4 @@
-# ANOVA (draft)
+# ANOVA
 
 >This chapter is based on a Bayesian ANOVA tutorial article by @vanDenBerghDoorn2020 (downloaded [here](https://psyarxiv.com/spreb/download?format=pdf) or viewed [here](https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm)).
 
