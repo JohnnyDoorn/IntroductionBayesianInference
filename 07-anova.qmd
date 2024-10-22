@@ -144,7 +144,7 @@ Again there are quite some numbers to unpack. Below they are defined, including 
 -   **P(incl|data)**: The posterior inclusion probability. Here we sum all the posterior model probabilities of the models that include this predictor. 
     - CorrectIdentify is included in 2 models that have a posterior model probability of 0.563 and something very small, so its posterior inclusion probability is approximately 0.563.
 -   **$\textbf{BF}_{incl}$** : The inclusion Bayes factor. It quantifies the change from prior inclusion probability to posterior inclusion probability for each component.
-    - For CorrectIdentify, this is calculated as follows: $0.563/(1 - 0.563) * (1 - 0.5)/0.5 \approx 1.29$
+    - For CorrectIdentify, this is calculated as follows: $0.554/(1 - 0.554) * (1 - 0.5)/0.5 \approx 1.24$
 
 The most important column here is the inclusion Bayes factor: it quantifies how well the models with a certain predictor do, compared to the models without. We can see here that there is overwhelming evidence in favor of including BeerType, but that there is not so much evidence for including CorrectIdentify (also no evidence in 
 favor of its *exclusion* - this is known as absence of evidence, rather than evidence of absence). 
