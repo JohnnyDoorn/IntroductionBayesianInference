@@ -2,9 +2,16 @@
 
 Below you will find various exercises on the intricate world of Bayesian inference, testing your knowledge and intuition about Bayesian parameter estimation and Bayesian hypothesis testing in the context of various statistical tests (binomial test, correlation, $t$-test). The exercises use statistical software [JASP](https://jasp-stats.org). Each exercise lists links to webpages with either only JASP output (so you can also complete the exercises without installing JASP), or with annotated JASP output containing the solutions/explanation to the exercises (and additional ramblings that hopefully provide some extra intuition). 
 
-If you want to conduct an analysis in JASP, but get stuck, you can consult [this playlist with 3 instructional videos (one for each of the analyses below)](https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ). Additionally, you can consult the [How to Use JASP page](https://jasp-stats.org/how-to-use-jasp/), for instance to see [how to load a data file from the data library](https://jasp-stats.org/wp-content/uploads/2022/11/DataLibraryRegression.gif).
+If you want to conduct an analysis in JASP, but get stuck, you can consult [this playlist with 3 instructional videos (one for each of the analyses below)](https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ). Additionally, you can consult the [How to Use JASP page](https://jasp-stats.org/how-to-use-jasp/), for instance to see [how to load a data file from the data library](https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_LoadingDataLibrary.mp4). 
+
 
 ## Binomial Test
+
+For the binomial test below, you have two possibilities:
+
+-   Go to Frequencies $\rightarrow$ Bayesian Binomial Test; here you can select the variable from the data ([gif illustration](https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_BinomialTestEmily.mp4))
+-   Load the Summary Statistics module and select Bayesian Binomial Test; here you can directly input the observed succeses and failures ([gif illustration](https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_SummaryStatistics.mp4)) 
+
 
 ### Therapeutic Touch
 
@@ -14,8 +21,8 @@ Therapeutic Touch (TT) is a nursing practice rooted in mysticism but alleged to 
 -   [JASP output with results and interpretation/solutions](https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.html)
 -   [JASP file with results and interpretation/solutions](https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.jasp)
 
-1.  Open the "Emily Rosa" dataset from the JASP Data Library (you can find it in the folder "Frequencies"). Alternatively, use the link above to view the results without using JASP.
-2.  Get a descriptive overview of the data by producing a frequency table of the variable Outcome (Go to "Frequencies", then "Bayesian Binomial Test" and select the variable "Outcome"). How many practitioners guessed correctly? What is the proportion?
+1.  Open the "Emily Rosa" dataset from the JASP Data Library (you can find it in the folder "Frequencies" - [gif illustration](https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_LoadingDataLibrary.mp4)). Alternatively, use the link above to view the results without using JASP.
+2.  Get a descriptive overview of the data by producing a frequency table of the variable Outcome (Go to "Frequencies", then "Bayesian Binomial Test" and select the variable "Outcome" - [gif illustration](https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_BinomialTestEmily.mp4)). How many practitioners guessed correctly? What is the proportion?
 3.  Produce a prior and posterior plot for a two-sided test and interpret the 95% credible interval displayed in it.
 4.  Conduct a Bayesian Binomial Test to test if the practitioners' ability (i.e., proportion of correct responses) is better than random (i.e., $\theta > 0.5$). Use the default prior for the alternative hypothesis. What is the Bayes factor in favor of the null hypothesis ($\text{BF}_{0+}$)?
 5.  How would you interpret the Bayes factor?
@@ -41,7 +48,7 @@ In this exercise, you will conduct a Bayesian binomial test to analyze the propo
 -   [JASP output with results and interpretation/solutions](https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.html)
 -   [JASP file with results and interpretation/solutions](https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.jasp)
 
-1.  Download the csv file from the OSF and open the data in JASP. Alternatively, use the link above to view the results without using JASP.
+1.  Download the csv file using the link above and open the data in JASP. Alternatively, use the link above to view the results without using JASP.
 2.  Get a descriptive overview of the data by producing a frequency table of the variable Outcome (go to "Frequencies", then "Bayesian Binomial Test" and select the variable "CorrectIdentify"). What percentage of participants had a correct response ("1")?
 3.  Which settings can we use to specify our alternative hypothesis (see @fig-jasp-screenshot-binomial-test) for the available settings)? What do these settings imply?
 4.  Using a uniform prior distribution, what are the two-sided Bayes factors ($\text{BF}_{10}$) for the proportion of incorrect responses ("0") and for the proportion of correct responses ("1")? Are they equal? Explain why (not).

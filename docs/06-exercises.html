@@ -219,9 +219,14 @@ div.csl-indent {
 </header>
 
 <p>Below you will find various exercises on the intricate world of Bayesian inference, testing your knowledge and intuition about Bayesian parameter estimation and Bayesian hypothesis testing in the context of various statistical tests (binomial test, correlation, <span class="math inline">\(t\)</span>-test). The exercises use statistical software <a href="https://jasp-stats.org">JASP</a>. Each exercise lists links to webpages with either only JASP output (so you can also complete the exercises without installing JASP), or with annotated JASP output containing the solutions/explanation to the exercises (and additional ramblings that hopefully provide some extra intuition).</p>
-<p>If you want to conduct an analysis in JASP, but get stuck, you can consult <a href="https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ">this playlist with 3 instructional videos (one for each of the analyses below)</a>. Additionally, you can consult the <a href="https://jasp-stats.org/how-to-use-jasp/">How to Use JASP page</a>, for instance to see <a href="https://jasp-stats.org/wp-content/uploads/2022/11/DataLibraryRegression.gif">how to load a data file from the data library</a>.</p>
+<p>If you want to conduct an analysis in JASP, but get stuck, you can consult <a href="https://youtube.com/playlist?list=PLWPa8RxHarcOyxhMAk_RMT9h_GYHCrgGQ">this playlist with 3 instructional videos (one for each of the analyses below)</a>. Additionally, you can consult the <a href="https://jasp-stats.org/how-to-use-jasp/">How to Use JASP page</a>, for instance to see <a href="https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_LoadingDataLibrary.mp4">how to load a data file from the data library</a>.</p>
 <section id="binomial-test" class="level2" data-number="6.1">
 <h2 data-number="6.1" class="anchored" data-anchor-id="binomial-test"><span class="header-section-number">6.1</span> Binomial Test</h2>
+<p>For the binomial test below, you have two possibilities:</p>
+<ul>
+<li>Go to Frequencies <span class="math inline">\(\rightarrow\)</span> Bayesian Binomial Test; here you can select the variable from the data (<a href="https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_BinomialTestEmily.mp4">gif illustration</a>)</li>
+<li>Load the Summary Statistics module and select Bayesian Binomial Test; here you can directly input the observed succeses and failures (<a href="https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_SummaryStatistics.mp4">gif illustration</a>)</li>
+</ul>
 <section id="therapeutic-touch" class="level3" data-number="6.1.1">
 <h3 data-number="6.1.1" class="anchored" data-anchor-id="therapeutic-touch"><span class="header-section-number">6.1.1</span> Therapeutic Touch</h3>
 <p>Therapeutic Touch (TT) is a nursing practice rooted in mysticism but alleged to have a scientific basis. Practitioners of TT claim to treat medical conditions by using their hands to manipulate a “human energy field” perceptible above the patients’ skin. Being a skeptical mind, 9-year old Emily Rosa ventured to test these claims by designing an experiment where TT practitioners had to correctly identify the location of the experimenter’s hand (above their left or right hand) while being blinded by a screen. The results of this experiment were later published in the prestigious Journal of the American Medical Association (Rosa et al., 1998). In the following exercise, you will evaluate this data set with JASP.</p>
@@ -231,8 +236,8 @@ div.csl-indent {
 <li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/EmilyRosa_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
-<li>Open the “Emily Rosa” dataset from the JASP Data Library (you can find it in the folder “Frequencies”). Alternatively, use the link above to view the results without using JASP.</li>
-<li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (Go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “Outcome”). How many practitioners guessed correctly? What is the proportion?</li>
+<li>Open the “Emily Rosa” dataset from the JASP Data Library (you can find it in the folder “Frequencies” - <a href="https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_LoadingDataLibrary.mp4">gif illustration</a>). Alternatively, use the link above to view the results without using JASP.</li>
+<li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (Go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “Outcome” - <a href="https://johnnydoorn.github.io/teaching-statistics/jasp-gifs/2024/Binomial-Test_BinomialTestEmily.mp4">gif illustration</a>). How many practitioners guessed correctly? What is the proportion?</li>
 <li>Produce a prior and posterior plot for a two-sided test and interpret the 95% credible interval displayed in it.</li>
 <li>Conduct a Bayesian Binomial Test to test if the practitioners’ ability (i.e., proportion of correct responses) is better than random (i.e., <span class="math inline">\(\theta &gt; 0.5\)</span>). Use the default prior for the alternative hypothesis. What is the Bayes factor in favor of the null hypothesis (<span class="math inline">\(\text{BF}_{0+}\)</span>)?</li>
 <li>How would you interpret the Bayes factor?</li>
@@ -259,7 +264,7 @@ div.csl-indent {
 <li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ResultsExplanation.jasp">JASP file with results and interpretation/solutions</a></li>
 </ul>
 <ol type="1">
-<li>Download the csv file from the OSF and open the data in JASP. Alternatively, use the link above to view the results without using JASP.</li>
+<li>Download the csv file using the link above and open the data in JASP. Alternatively, use the link above to view the results without using JASP.</li>
 <li>Get a descriptive overview of the data by producing a frequency table of the variable Outcome (go to “Frequencies”, then “Bayesian Binomial Test” and select the variable “CorrectIdentify”). What percentage of participants had a correct response (“1”)?</li>
 <li>Which settings can we use to specify our alternative hypothesis (see <a href="04-beer.html#fig-jasp-screenshot-binomial-test">Figure&nbsp;<span>4.1</span></a>) for the available settings)? What do these settings imply?</li>
 <li>Using a uniform prior distribution, what are the two-sided Bayes factors (<span class="math inline">\(\text{BF}_{10}\)</span>) for the proportion of incorrect responses (“0”) and for the proportion of correct responses (“1”)? Are they equal? Explain why (not).</li>
