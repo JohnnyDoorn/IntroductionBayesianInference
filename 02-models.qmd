@@ -24,7 +24,7 @@ The two models make a different claim about $\theta$, and therefore also make di
 P(\text{data} \mid \theta) = \frac{n!}{k! (n-k)!} \theta^k\left(1-\theta\right)^{n-k},
 \end{align} which, if we fill in the outcome for which we want to know the likelihood (i.e., $k=8$ heads out of $n=10$ flips), becomes: 
 \begin{equation}
-P(\text{8 heads out of 10} \mid \theta) = \frac{10!}{8! (10-8)!} \theta^8\left(1-\theta\right){10-8}.
+P(\text{8 heads out of 10} \mid \theta) = \frac{10!}{8! (10-8)!} \theta^8\left(1-\theta\right)^{10-8}.
 \end{equation}
 The last element to fill in is $\theta$. If we do so for Sarah, who postulates $\theta = 0.5$, we get `r round(dbinom(8, 10, 0.5), 4)`. For Paul, who postulates $\theta = 0.8$, we get `r round(dbinom(8, 10, 0.8), 4)`. If we do this for every possible outcome, and create a bar graph of each likelihood, we get the following two figures that illustrate what each model deems likely (the yellow bar indicates each models' likelihood of the example of 8 heads out of 10 flips):
 
