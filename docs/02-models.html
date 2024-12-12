@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.340">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>A Brief Introduction to Bayesian Inference - 2&nbsp; What is a Model?</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./03-estimation.html" rel="next">
+<link href="./01-intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./02-models.html"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is a Model?</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">A Brief Introduction to Bayesian Inference</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-models.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is a Model?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-estimation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How do Models Estimate?</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-beer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">The Beer Tasting</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-more-tests.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">More Bayesian Analyses</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-exercises.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Exercises</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA</span></span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#sec-models-make-predictions" id="toc-sec-models-make-predictions" class="nav-link active" data-scroll-target="#sec-models-make-predictions"><span class="header-section-number">2.1</span> Models Make Predictions</a></li>
+  <li><a href="#sec-model-comparison" id="toc-sec-model-comparison" class="nav-link" data-scroll-target="#sec-model-comparison"><span class="header-section-number">2.2</span> Model Comparison</a></li>
+  <li><a href="#sec-more-models" id="toc-sec-more-models" class="nav-link" data-scroll-target="#sec-more-models"><span class="header-section-number">2.3</span> More Models</a>
+  <ul class="collapse">
+  <li><a href="#sec-open-minded-model" id="toc-sec-open-minded-model" class="nav-link" data-scroll-target="#sec-open-minded-model"><span class="header-section-number">2.3.1</span> The Open-Minded Model</a></li>
+  </ul></li>
+  <li><a href="#sec-more-model-comparison" id="toc-sec-more-model-comparison" class="nav-link" data-scroll-target="#sec-more-model-comparison"><span class="header-section-number">2.4</span> More Model Comparisons</a></li>
+  <li><a href="#concluding-thoughts" id="toc-concluding-thoughts" class="nav-link" data-scroll-target="#concluding-thoughts"><span class="header-section-number">2.5</span> Concluding Thoughts</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">What is a Model?</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>Before we dive into the analysis of the beer tasting experiment, we need to define some key components. First of all, the concept of a <em>statistical model</em>. A statistical model is a combination of a general statistical model (e.g., the binomial model) and a statement about a parameter value that describe a certain phenomenon. For instance, we can model the flipping of a fair coin with the binomial model, where the probability parameter <span class="math inline">\(\theta\)</span> (“theta”) is set to <span class="math inline">\(0.5\)</span>. Or, we can model the height of Dutch men (in cm) with a normal model, where the location parameter <span class="math inline">\(\mu = 183\)</span> and the dispersion parameter <span class="math inline">\(\sigma = 5\)</span>. A statistical model can therefore also be seen as a hypothesis: a specific statement about the value of the model parameters.</p>
+<section id="sec-models-make-predictions" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="sec-models-make-predictions"><span class="header-section-number">2.1</span> Models Make Predictions</h2>
+<p>An essential property of a statistical model is that it can make predictions about the real world. We can use the accuracy of these predictions to gauge the quality/plausibility of a model, relative to another model. For instance, Sarah thinks that the probability of heads in a coin flip is 50% (i.e., <span class="math inline">\(H_S: \theta = 0.5\)</span>), while Paul claims that the coin has been tampered with, and that the probability of heads is 80% (i.e., <span class="math inline">\(H_P: \theta = 0.8\)</span>). Here, Sarah and Paul postulate different models/hypotheses. They are both <a href="https://en.wikipedia.org/wiki/Binomial_distribution">binomial models</a>, which is the general statistical model for describing a series of chance-based events with a binary outcome (e.g., coin flip, red/black in roulette, whether a random person from the population has a certain disease or not, or someone identifying the alcholic beer). Where Sarah and Paul differ, however, is their claim about the specific value of the <span class="math inline">\(\theta\)</span> parameter. In the remainder of this text, we will be referring to model to mean such a combination of general statistical model, and claim about the value of the model parameter (i.e., hypothesis).</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-two-models-binomial" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-models_files/figure-html/fig-two-models-binomial-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.1: Two models for a coin toss. The arrows indicate what each of the models postulate: both postulate a single value for theta.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>The two models make a different claim about <span class="math inline">\(\theta\)</span>, and therefore also make different <em>predictions</em> about the outcome of a series of 10 coin flips. Specifically, we can use the binomial model to calculate how likely each possible outcome is under each of the models. For instance, we can calculate how likely it is to observe 8 heads out of 10 flips. The binomial formula is as follows: <span class="math display">\[\begin{align}
+\label{binomFormula}
+P(\text{data} \mid \theta) = \frac{n!}{k! (n-k)!} \theta^k\left(1-\theta\right)^{n-k},
+\end{align}\]</span> which, if we fill in the outcome for which we want to know the likelihood (i.e., <span class="math inline">\(k=8\)</span> heads out of <span class="math inline">\(n=10\)</span> flips), becomes: <span class="math display">\[\begin{equation}
+P(\text{8 heads out of 10} \mid \theta) = \frac{10!}{8! (10-8)!} \theta^8\left(1-\theta\right)^{10-8}.
+\end{equation}\]</span> The last element to fill in is <span class="math inline">\(\theta\)</span>. If we do so for Sarah, who postulates <span class="math inline">\(\theta = 0.5\)</span>, we get 0.0439. For Paul, who postulates <span class="math inline">\(\theta = 0.8\)</span>, we get 0.302. If we do this for every possible outcome, and create a bar graph of each likelihood, we get the following two figures that illustrate what each model deems likely (the yellow bar indicates each models’ likelihood of the example of 8 heads out of 10 flips):</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-two-models-likelihoods-binomial" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-models_files/figure-html/fig-two-models-likelihoods-binomial-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.2: The likelihoods of all possible outcomes of 10 coin flips, under Sarah’s model and under Paul’s model. The yellow bar indicates the likelihood of the observed data (8 heads).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<!-- These two figures also reflect how Sarah and Paul would spread their money, if they would be handed 100€ and asked to bet on the outcome of 10 coin tosses. While they would bet most of their money on the value exactly equal to $\theta \times n$ (i.e., 5 for Sarah and 8 for Paul), there will always be some random noise in the sample, which causes the observed data to manifest (slightly) differently from the true population value.  -->
+<p>These two figures reflect likely outcomes of the experiment of flipping a coin 10 times. If Sarah is correct, and the probability of heads is in fact <span class="math inline">\(0.5\)</span>, likely outcomes are 4, 5, and 6. However, if Paul is correct, and <span class="math inline">\(\theta = 0.8\)</span>, it is more likely to see 7, 8 or 9 heads.</p>
+</section>
+<section id="sec-model-comparison" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="sec-model-comparison"><span class="header-section-number">2.2</span> Model Comparison</h2>
+<p>In the previous section we have made concrete what each of the two models predict. The models differ in their statement about <span class="math inline">\(\theta\)</span> (<a href="#fig-two-models-binomial">Figure&nbsp;<span>2.1</span></a>), and therefore differ in what they deem likely outcomes (<a href="#fig-two-models-likelihoods-binomial">Figure&nbsp;<span>2.2</span></a>). Now imagine that we actually gather some data by flipping a coin 10 times, and we observe 8 heads and 2 tails. <a href="#fig-two-models-likelihoods-binomial">Figure&nbsp;<span>2.2</span></a> tells us that the probability of that happening under Sarah’s model is 0.0439, while under Paul’s model this is 0.302. These two numbers tell us something about how well each model predicted the data, relative to each other. Specifically, the ratio of these two numbers is known as the <strong>Bayes factor</strong>. Here, the Bayes factor is equal to 0.0439 / 0.302 = 0.15, which means that the observed data are about 0.15 times more likely under Sarah’s model than under Paul’s model. The Bayes factor has a subscript that indicates what model is being compared to what: <span class="math inline">\(\text{BF}_{SP}\)</span> gives how much more likely Sarah’s model is than Paul’s, while <span class="math inline">\(\text{BF}_{PS}\)</span> gives how much more likely Paul’s is than Sarah’s. To go from <span class="math inline">\(\text{BF}_{SP}\)</span> to <span class="math inline">\(\text{BF}_{PS}\)</span>, you simply take 1 divided by the other: <span class="math inline">\(\text{BF}_{PS}\)</span> = <span class="math inline">\(\frac{1}{\text{BF}_{SP}}\)</span> = 6.88. So saying that the data are 6.88 times more likely under Paul’s model than Sarah’s model is exactly the same. Generally, it is a bit easier to communicate the Bayes factor that is <span class="math inline">\(&gt;1\)</span>, using the appropriate subscript.</p>
+<p>Lastly, it can be the case that two models predicted the data equally well. In this case the Bayes factor will be equal to 1. Generally, we want the Bayes factor to be as far away from 1 as possible, since this indicates more and more evidence in favor of one model over another. Different categorizations have been made to translate a Bayes factor into human words, to facilitate communication about degrees of evidence for/against one model respective to another. One such representation is given below in <a href="#fig-bayes-factor-classification">Figure&nbsp;<span>2.3</span></a>.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-bayes-factor-classification" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Figures/BF_TableInterpretation.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.3: A graphical representation of a Bayes factor classification table. As the Bayes factor deviates from 1, which indicates equal support for <span class="math inline">\(H_0\)</span> and <span class="math inline">\(H_1\)</span>, more support is gained for either <span class="math inline">\(H_0\)</span> or <span class="math inline">\(H_1\)</span>. The probability wheels illustrate the continuous scale of evidence that Bayes factors represent. These classifications are heuristic and should not be misused as an absolute rule for binary all-or-nothing conclusions.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="sec-more-models" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="sec-more-models"><span class="header-section-number">2.3</span> More Models</h2>
+<p>So far, we have considered two models (<span class="math inline">\(H_S\)</span> and <span class="math inline">\(H_P\)</span>), both of which postulate a single value for the model parameter <span class="math inline">\(\theta\)</span>. However, it is possible for a model to be more uncertain in its assertions. For instance, we can have a model that postulates that the probability of heads is greater than <span class="math inline">\(0.5\)</span> (i.e., <span class="math inline">\(0.5 \leq \theta \leq 1\)</span> <a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>). This corresponds to the belief that the coin is tampered with, but without making a strong statement about the degree of tampering. Furthermore, next to the model postulating the range for <span class="math inline">\(\theta\)</span>, it also needs to specify how likely it deems every value in this range. Let’s add two more people and their models to the mix to illustrate. Betty believes the coin has been tampered with, but is unsure about the degree of tampering: she believes that every value of <span class="math inline">\(\theta\)</span> between 0.5 and 1 is equally likely. Next is David, who is a bit more extreme in his beliefs: he believes that the coin is tampered with heavily, so assumes that values of <span class="math inline">\(\theta\)</span> close to 1 are more likely than values of <span class="math inline">\(\theta\)</span> closer to <span class="math inline">\(0.5\)</span>. If we were to plot the models and corresponding hypotheses of Betty and David, they would look as follows (the difference in density reflecting their different beliefs):</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-two-models-binomial-onesided" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-models_files/figure-html/fig-two-models-binomial-onesided-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.4: Two more models for a coin toss. The colored regions indicate what each model believes. Even though both Betty and David belive the probabilty of heads to be greater than 0.5, they differ in how plausible they deem specific values in that range.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Compared to the models in <a href="#fig-two-models-binomial">Figure&nbsp;<span>2.1</span></a>, which only “bet” on a single value, the models above spread their bets more. David and Betty thus make safer bets since they make wider predictions. Although both Betty and David only consider positive values, they differ in how plausible they deem specific positive values. As before, these models also make predictions about how likely various outcomes of a series of 10 coin flips would be. Again, the binomial formula can be used. However, this time the models do not predict a single value, but a whole range of values. In order to compute how likely Betty’s model deems an outcome of 8 heads out of 10 flips, we have to consider every postulated value of <span class="math inline">\(\theta\)</span> between 0.5 and 1, compute the likelihood of the data for each value, and average across all of these likelihoods, weighted by the density at each point. The technical term for such weighted averaging is called marginalizing, and we refer to this averaged likelihood as the <strong>marginal likelihood</strong>. In the next section we will revisit this topic.</p>
+<p>In <a href="#fig-two-models-binomial-onesided-predictions">Figure&nbsp;<span>2.5</span></a> below, you can see the marginal likelihoods for all outcomes, for each of the two additional models. Note that even though neither Betty nor David postulate values of <span class="math inline">\(\theta\)</span> below 0.5 (i.e., the <em>parameter</em>), they assign some plausibility to observed proportions below 0.5 (i.e., the <em>statistic</em>, or observed data). This reflects the random nature of a coin flip: even though the true probability of heads is <span class="math inline">\(0.6\)</span>, you might still observe 3 heads out of 10 flips.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-two-models-binomial-onesided-predictions" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-models_files/figure-html/fig-two-models-binomial-onesided-predictions-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.5: The marginal likelihoods of all possible outcomes of 10 coin flips, under the two additional models. The yellow bar indicates the marginal likelihood of the observed data (8 heads).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="sec-open-minded-model" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="sec-open-minded-model"><span class="header-section-number">2.3.1</span> The Open-Minded Model</h3>
+<p>Lastly, but perhaps most importantly, we can also consider a model that tries to spread its bets as much as possible. Let’s say that Alex wants to keep as much of an open mind about values of <span class="math inline">\(\theta\)</span> as possible. They consider each possible value of <span class="math inline">\(\theta\)</span> to be equally plausible. In Bayesian inference, we also refer to this type of model as the <em>uninformed</em> model. The figure below illustrates what the uninformed model posits, and which outcomes it deems likely. We again have a model that postulates multiple values, so the figure on the right depicts marginal likelihoods. For instance, for the yellow bar, we look at how likely 8 heads out of 10 flips are, averaged over all values postulated by the model, weighted by the density in the left graph.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-uninformed-model-binomial-prediction" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="02-models_files/figure-html/fig-uninformed-model-binomial-prediction-1.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;2.6: The so-called “uninformed model”. Alex wants to keep an open mind about the values of theta and considers each value equally plausible. Left: the colored region indicate what Alex believes. Right: what this specific model considers likely outcomes. The yellow bar indicates the marginal likelihood of the observed data (8 heads).</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-more-model-comparison" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="sec-more-model-comparison"><span class="header-section-number">2.4</span> More Model Comparisons</h2>
+<p>We can apply the same principles from <a href="#sec-model-comparison"><span>Section&nbsp;2.2</span></a> to compare how well each of the additional models has predicted the observed data of 8 heads out of 10 coin flips. To do so, we can simply take the ratio of each of the yellow bars in the figures that depict how likely each model considers the various possible outcomes of 10 coin flips. For instance, Alex’s model has a marginal likelihood of 0.0909 for 8 heads, whereas Betty’s model has a marginal likelihood of 0.1766 for 8 heads. If we want to compare the predictions of Betty and Alex, we can look at the ratio of these values to obtain <span class="math inline">\(\text{BF}_{AB} =\)</span> 0.5, which is equivalent to <span class="math inline">\(\text{BF}_{BA} =\)</span> 1.9. This means that the data are about twice as likely under Betty’s model than under Alex’s model, which can be considered weak evidence in favor of Betty’s model over Alex’s model.</p>
+<p>If we were to use the betting analogy again, we could say that while both Alex and Betty had bet some money on the outcome of 8 heads, Betty had bet more money on this particular outcome than Alex, and is therefore rewarded more. Because Betty has a more specific belief (namely that the coin is biased towards heads), she had more money at her disposal for betting on the considered values (i.e., values between 0.5 and 1). In contrast, Alex played it very safely: they win some money for any outcome because they spread their betting money across all values. However, because of this, their reward is lower for having correctly predicted the observed data compared to someone who made a more specific bet on the observed data. The phenomenon of more specific models being rewarded more (when predicting well) than their non-specific competitor is known as <strong>parsimony</strong>, and will be discussed in more depth in Chapter 4.</p>
+<p>A last model comparison we can make is to compare Alex’s model to Sarah’s model. In a typical (two-sided) statistical test about a proportion, this is the most often-used comparison: Sarah’s model is considered to be the null model, and Alex’s model is considered the two-sided alternative model. As we saw, Alex’s marginal likelihood is 0.0909, while Sarah’s marginal likelihood is 0.0439, so the Bayes factor comparing these two models, <span class="math inline">\(\text{BF}_{AS}\)</span>, equals 2.07. This means the data are about twice as likely under Alex’s model compared to Sarah’s model.</p>
+<p>As a bonus, when we know <span class="math inline">\(\text{BF}_{BA}\)</span> and <span class="math inline">\(\text{BF}_{AS}\)</span>, we automatically know <span class="math inline">\(\text{BF}_{BS}\)</span>. Since we know how much more likely the data are under Betty’s model than under Alex’s model (about 2 times), and how much more likely the data are under Alex’s model than under Sarah’s model (about 2 times), we also now know that Betty’s model is about <span class="math inline">\(2 \times 2 = 4\)</span> times more likely than Sarah’s model! This property it known as <strong>transitivity</strong>.</p>
+</section>
+<section id="concluding-thoughts" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="concluding-thoughts"><span class="header-section-number">2.5</span> Concluding Thoughts</h2>
+<p>In this chapter, we have seen several key ideas:</p>
+<ul>
+<li>Models make concrete statements about parameters of a model. In this case, about the <span class="math inline">\(\theta\)</span> parameter in the binomial model</li>
+<li>These statements can be characterized by a probability distribution, where the probability mass reflects the specific statement
+<ul>
+<li>The model could hypothesize a single value (e.g., <a href="#fig-two-models-binomial">the models of Sarah and Paul</a>)</li>
+<li>The model could hypothesize a range of values (e.g., <a href="#fig-two-models-binomial-onesided">the models of Betty, David</a> and <a href="#fig-uninformed-model-binomial-prediction">Alex</a>)</li>
+</ul></li>
+<li>After we have observed some data, we can use the Bayes factor to compare the quality of the predictions made by each model
+<ul>
+<li>The Bayes factor is a relative metric, comparing 2 models at a time</li>
+<li>The subscript of the Bayes factor indicates which model is compared to which</li>
+<li>More specific predictions, when accurate, are rewarded (parsimony)</li>
+</ul></li>
+</ul>
+<p>Instead of comparing models, however, we can also look at one model, and use it to <strong>estimate</strong> the value of <span class="math inline">\(\theta\)</span>. We will see that each of the models presented above will yield different estimates, because they had different <em>a priori</em> (i.e., before seeing the data) beliefs about plausible values of <span class="math inline">\(\theta\)</span>.</p>
+
+
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>Because we are working with a continuous range of values for <span class="math inline">\(\theta\)</span>, the difference between saying <span class="math inline">\(0.5 &lt; \theta\)</span> and <span class="math inline">\(0.5 \leq \theta\)</span> is infinitesimally small and the two versions may be used interchangeably.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01-intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">The Lady Tasting Tea</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./03-estimation.html" class="pagination-link">
+        <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">How do Models Estimate?</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>
