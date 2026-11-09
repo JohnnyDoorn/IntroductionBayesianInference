@@ -26,7 +26,7 @@ tBetFun <- function(x, shape1 = 1, shape2 = 1, side = "pos") {
 
 ## Models Have Beliefs
 
-Belief is a funny word and we tend to associate the word with things that have seemingly little to do with science or statistics. However, we have beliefs about anything in the world -- they might be quite weak, but we still have *some* starting point for reasoning about some phenomenon. For instance, I know very little about the number of penguins in the world, but I do know there are more than 0, probably more than $1{,}000$, and fewer than $1{,}000{,}000{,}000$ of them.[^03-estimation-1] I could characterize my very uninformed belief by means of a probability distribution, where the probabilty mass depicts how plausible I deem certain values. This is exactly the same as we did in the previous chapter by characterizing the different peoples' beliefs about the fairness of a coin. In this case, even if we would know absolutely nothing about the coin in question, we still have *some* information about the parameter $\theta$. For instance, we know that it will be between 0 and 1 because it is a probability. If we do not have any knowledge beyond this, we could reflect our prior belief about $\theta$ by means of a uniform distribution, just like Alex did. In fact, we will now illustrate belief updating by looking at how Alex updates their beliefs, as a result of observing 8 heads out of 10 flips.
+Belief is a funny word and we tend to associate the word with things that have seemingly little to do with science or statistics. However, we have beliefs about anything in the world -- they might be quite weak, but we still have *some* starting point for reasoning about some phenomenon. For instance, I know very little about the number of penguins in the world, but I do know there are more than 0, probably more than $1{,}000$, and fewer than $1{,}000{,}000{,}000$ of them.[^03-estimation-1] I could characterize my very uninformed belief by means of a probability distribution, where the probability mass depicts how plausible I deem certain values. This is exactly the same as we did in the previous chapter by characterizing the different peoples' beliefs about the fairness of a coin. In this case, even if we would know absolutely nothing about the coin in question, we still have *some* information about the parameter $\theta$. For instance, we know that it will be between 0 and 1 because it is a probability. If we do not have any knowledge beyond this, we could reflect our prior belief about $\theta$ by means of a uniform distribution, just like Alex did. In fact, we will now illustrate belief updating by looking at how Alex updates their beliefs, as a result of observing 8 heads out of 10 flips.
 
 [^03-estimation-1]: How would you characterize your beliefs about the number of penguins in the world? What would your belief distribution look like?
 
@@ -34,7 +34,7 @@ Belief is a funny word and we tend to associate the word with things that have s
 
 As you might recall from @sec-open-minded-model, Alex was keeping an open mind about the values $\theta$ - their **prior distribution**[^03-estimation-2] was a uniform distribution across all values between 0 and 1.
 
-[^03-estimation-2]: The prior distribution is the offical term for the probability distribution that quantifies a model's prior beliefs about a parameter.
+[^03-estimation-2]: The prior distribution is the official term for the probability distribution that quantifies a model's prior beliefs about a parameter.
 
 ```{r uninformed-model-binomial-prediction-2, fig.cap='The so-called "uninformed model". Alex wants to keep an open mind about the values of theta and considers each value equally plausible. The uniform prior distribution below reflects this.', fig.align='center', out.width='90%', echo = FALSE}
 #| label: fig-uninformed-model-binomial-prediction-2
@@ -97,7 +97,7 @@ By doing so, we have quite literally set the bar: values of $\theta$ where the l
 \overbrace{\underbrace{\frac{p( \text{data} \mid \theta)}{p( \text{data})}}}^{\substack{\text{Prediction for specific }\theta }}_{\substack{\text{Average prediction} \\\text{across all }  \theta's}}.
 \end{align}
 
-We can visualize the aforementioned process. Again we look at the likelihood values, but now the values that see an increase/decrease in plausibilty are marked by the blue/vermillion arrows, respectively:
+We can visualize the aforementioned process. Again we look at the likelihood values, but now the values that see an increase/decrease in plausibility are marked by the blue/vermillion arrows, respectively:
 
 ```{r likelihood-binomial-8-heads-marginal-redgreen, fig.cap='Values of theta that predicted the data better than average (marked in blue) will have a updating factor greater than 1, and receive a boost in plausibility as a result of the data. The reverse holds for values that predicted worse than average (marked in vermillion). ', fig.align='center', out.width='90%', echo = FALSE}
 #| label: fig-likelihood-binomial-8-heads-marginal-redgreen
@@ -148,7 +148,7 @@ curve(dbeta(x, 1, 1), from = 0, to = 1, lwd = 3, col ="blue", add = TRUE)
 legend("topleft", legend = c("Prior", "Posterior"), col = c("blue", "darkorange"), lty = 1, lwd = 4, bty = "n")
 ```
 
-We have now updated Alex's prior knowledge to posterior knowledge! The posterior distribution enables us to make probabilistic statements about values of $\theta$ because it is a probability distribution.[^03-estimation-4] For instance, the median of this posterior distribution is $0.764$, which means that under Alex's model, there is a 50% probability that $\theta$ is greater than $0.764$. Or, we can use the posterior distribution to make an *interval estimation*. In the Bayesian framework, this is known as the **credible interval**. This interval entails taking the middle $x$% of the posterior distribution. For instance, we can take a 95% credible interval, which ranges from $0.482$ to $0.940$ in this case. This means that under Alex's model, there is a 95% probability that the true value of $\theta$ is between $0.482$ and $0.940$. Such a straightfoward interpretation is one of the strengths of the Bayesian framework, compared to the frequentist framework.
+We have now updated Alex's prior knowledge to posterior knowledge! The posterior distribution enables us to make probabilistic statements about values of $\theta$ because it is a probability distribution.[^03-estimation-4] For instance, the median of this posterior distribution is $0.764$, which means that under Alex's model, there is a 50% probability that $\theta$ is greater than $0.764$. Or, we can use the posterior distribution to make an *interval estimation*. In the Bayesian framework, this is known as the **credible interval**. This interval entails taking the middle $x$% of the posterior distribution. For instance, we can take a 95% credible interval, which ranges from $0.482$ to $0.940$ in this case. This means that under Alex's model, there is a 95% probability that the true value of $\theta$ is between $0.482$ and $0.940$. Such a straightforward interpretation is one of the strengths of the Bayesian framework, compared to the frequentist framework.
 
 [^03-estimation-4]: Note the contrast to the sampling distribution, which is a distribution of the sample statistic $\hat{p}$, rather than the parameter.
 
@@ -180,7 +180,7 @@ In other words, Sarah's prior belief about $\theta$ was quite fanatical. The pri
 \overbrace{\underbrace{\frac{p( \text{data} \mid \theta)}{p( \text{data})}}}^{\substack{\text{Prediction for specific }\theta }}_{\substack{\text{Average prediction} \\\text{across all }  \theta's}}.
 \end{align}
 
-Since Sarah's prior density for any value that is not 0.5, is equal to 0, that means that the posterior density for those values will also be 0. Because of the multiplication by 0, the updating factor is therefore completely ignored. As for the pior density at the value 0.5 - it too gets mutliplied by the updating factor, but just as anything multiplied by 0 is 0, anything multiplied by infinity is infinity. In other words, a model like Sarah's is completely blind to the data, since she is alread so convinced that $\theta = 0.5$.[^03-estimation-6] The posterior will therefore be exactly the same as in @fig-sarah-model-binomial above.
+Since Sarah's prior density for any value that is not 0.5, is equal to 0, that means that the posterior density for those values will also be 0. Because of the multiplication by 0, the updating factor is therefore completely ignored. As for the prior density at the value 0.5 - it too gets multiplied by the updating factor, but just as anything multiplied by 0 is 0, anything multiplied by infinity is infinity. In other words, a model like Sarah's is completely blind to the data, since she is already so convinced that $\theta = 0.5$.[^03-estimation-6] The posterior will therefore be exactly the same as in @fig-sarah-model-binomial above.
 
 [^03-estimation-6]: I feel like there is a real-life analogue to be found here somewhere...
 
@@ -271,7 +271,7 @@ In Bayesian inference, the prior distribution can be any probability distributio
 
 Basically, these are the dynamics:
 
--   Setting $a = b$ creates a symetric distribution, with $a = b = 1$ giving a uniform distribution.
+-   Setting $a = b$ creates a symmetric distribution, with $a = b = 1$ giving a uniform distribution.
     -   As the value of $a = b$ increases, more and more probability mass will be centered in the middle (at 0.5), with Sarah's prior distribution as the limit ($a = b = \infty$).
 -   When $a > b$, more probability mass will be to the right of 0.5, while the reverse holds for $a < b$.
 -   When $a < 1$ and $b < 1$, more mass will be towards the tails of the distribution (close to 0 and 1). Note that $a$ and $b$ need to be greater than 0.
@@ -280,7 +280,7 @@ Basically, these are the dynamics:
 
 In the context of a prior distribution for a proportion, the $a$ and $b$ can be interpreted as previously observed heads and tails. For instance, having a uniform prior distribution (like Alex) can be seen as having observed 1 heads and 1 tails already. David's prior distribution is in fact a beta distribution with $a = 3$ and $b = 1$, truncated for lower values (meaning values $< 0.5$ receive 0 probability mass). This corresponds to David having already seen 3 heads and 1 tails. In order to obtain Sarah's prior distribution, we would have a beta distribution with $a = b = \infty$, which means that Sarah believes as if she has already seen incredibly many heads and tails.
 
-In addition to the prior distribution, the posterior distribution for $\theta$ is also a beta distribution. Specifically, it is a beta distribution where $a$ is equal to the $a$ of the prior distribution, plus the number of observed succeses/heads. The $b$ is equal to the $b$ of the prior distribution, plus the number of observed failures/tails. For instance, Alex's posterior distribution (@fig-prior-posterior-binomial) is a beta distribution with $a = 1 + 8 = 9$, and $b = 1 + 2 = 3$, while David's posterior distribution (@fig-prior-posterior-binomial-david) is a (trunctated) beta distribution with $a = 3 + 8 = 11$, and $b = 1 + 2 = 3$. Representing the knowledge updating in terms of the beta distribution also illustrates how Sarah's prior and posterior distribution are the same: her posterior $a$ is equal to $\infty + 8 = \infty$, and her posterior $b$ is equal to $\infty + 2 = \infty$.
+In addition to the prior distribution, the posterior distribution for $\theta$ is also a beta distribution. Specifically, it is a beta distribution where $a$ is equal to the $a$ of the prior distribution, plus the number of observed successes/heads. The $b$ is equal to the $b$ of the prior distribution, plus the number of observed failures/tails. For instance, Alex's posterior distribution (@fig-prior-posterior-binomial) is a beta distribution with $a = 1 + 8 = 9$, and $b = 1 + 2 = 3$, while David's posterior distribution (@fig-prior-posterior-binomial-david) is a (truncated) beta distribution with $a = 3 + 8 = 11$, and $b = 1 + 2 = 3$. Representing the knowledge updating in terms of the beta distribution also illustrates how Sarah's prior and posterior distribution are the same: her posterior $a$ is equal to $\infty + 8 = \infty$, and her posterior $b$ is equal to $\infty + 2 = \infty$.
 
 ### Two-sided vs One-sided Estimation
 
@@ -355,6 +355,6 @@ We have seen several key ideas:
 
 -   Prior knowledge (i.e., what a model believes, *before* seeing the data) is characterized by a probability distribution: in the case of proportion $\theta$, we typically use the beta distribution
 -   Prior knowledge is then updated with the updating factor, which consists of the likelihood of the observed data, and the average likelihood for that model
--   Values of $\theta$ that predicted the data well will receive a boost in plausibilty (posterior density \> prior density) and values that predicted the data poorly will receive a penalty in plausibilty (prior density \> posterior density)
+-   Values of $\theta$ that predicted the data well will receive a boost in plausibility (posterior density \> prior density) and values that predicted the data poorly will receive a penalty in plausibility (prior density \> posterior density)
 -   The posterior distribution reflects our posterior knowledge (i.e., what a model believes, *after* seeing the data), which we use to make an estimate of the parameter
 -   Strong prior convictions will need more data to be overthrown.

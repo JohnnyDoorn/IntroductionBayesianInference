@@ -184,8 +184,13 @@ div.csl-indent {
   <li><a href="#analysis-of-effects" id="toc-analysis-of-effects" class="nav-link" data-scroll-target="#analysis-of-effects"><span class="header-section-number">7.1.4</span> Analysis of Effects</a></li>
   <li><a href="#single-model-inference" id="toc-single-model-inference" class="nav-link" data-scroll-target="#single-model-inference"><span class="header-section-number">7.1.5</span> Single Model Inference</a></li>
   <li><a href="#model-averaging" id="toc-model-averaging" class="nav-link" data-scroll-target="#model-averaging"><span class="header-section-number">7.1.6</span> Model Averaging</a></li>
+  <li><a href="#error-percentage" id="toc-error-percentage" class="nav-link" data-scroll-target="#error-percentage"><span class="header-section-number">7.1.7</span> Error percentage</a></li>
   </ul></li>
-  <li><a href="#even-more-beer-analyses---interaction-effect" id="toc-even-more-beer-analyses---interaction-effect" class="nav-link" data-scroll-target="#even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2</span> Even More Beer Analyses - Interaction Effect?!</a></li>
+  <li><a href="#sec-anova-exercises" id="toc-sec-anova-exercises" class="nav-link" data-scroll-target="#sec-anova-exercises"><span class="header-section-number">7.2</span> Exercises</a>
+  <ul class="collapse">
+  <li><a href="#even-more-beer-analyses---interaction-effect" id="toc-even-more-beer-analyses---interaction-effect" class="nav-link" data-scroll-target="#even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2.1</span> Even More Beer Analyses - Interaction Effect?!</a></li>
+  <li><a href="#mais-study-drug" id="toc-mais-study-drug" class="nav-link" data-scroll-target="#mais-study-drug"><span class="header-section-number">7.2.2</span> Mai’s Study Drug</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -194,7 +199,7 @@ div.csl-indent {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA</span></h1>
+<h1 class="title"><span id="sec-anova" class="quarto-section-identifier"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">ANOVA</span></span></h1>
 </div>
 
 
@@ -213,9 +218,9 @@ div.csl-indent {
 <p>This chapter is based on a Bayesian ANOVA tutorial article by <span class="citation" data-cites="vanDenBerghDoorn2020">van den Bergh et al. (<a href="#ref-vanDenBerghDoorn2020" role="doc-biblioref">2020</a>)</span> (downloaded <a href="https://psyarxiv.com/spreb/download?format=pdf">here</a> or viewed <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm">here</a>).</p>
 </blockquote>
 <!-- and an introduction to Bayesian model averaging by @hinne2020 (downloaded [here](https://psyarxiv.com/wgb64/download) or viewed [here](https://journals.sagepub.com/doi/full/10.1177/2515245919898657)) -->
-<p>So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., <span class="math inline">\(\theta\)</span> for the binomial test, <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(t\)</span>-tests, or <span class="math inline">\(\rho\)</span> for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., <a href="05-more-tests.html#fig-beer-tastiness-correlation-posterior">Figure&nbsp;<span>5.9</span></a>). For more complex scenario’s (i.e., with more predictor variables), many different models can be constructed, each with multiple parameters. In this chapter, we will shine a Bayesian light on the ANOVA, and see how the Analysis of Variance can benefit from the Bayesian tools we have discussed so far.</p>
-<p>In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a>, the Bayesian <span class="math inline">\(t\)</span>-test was introduced. Since a difference in means (standardized or not) is on a continuous scale, without hard bounds (as opposed to the correlation, or proportion), the type of distribution that was used to characterize each model’s predictions was the Cauchy distribution. For the <span class="math inline">\(t\)</span>-test, there is only one parameter needed to model the difference between two groups. For instance, if we stick to the beer example, and we are trying to model the tastiness ratings (<span class="math inline">\(y\)</span>) by looking at whether the beer contained alcohol, or not (<span class="math inline">\(x = 1\)</span> for alcoholic, while <span class="math inline">\(x = 0\)</span> for non-alcoholic). We can now write the <span class="math inline">\(t\)</span>-test model as a linear regression, where we model the outcome variable <span class="math inline">\(y\)</span> as a function of an intercept (<span class="math inline">\(b_0\)</span>) and a single regression coefficient that models the group difference (<span class="math inline">\(b_1\)</span>):<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[ y_i = b_0 + b_1 \times x_i. \]</span> By modeling tastiness rating as such, the variable <span class="math inline">\(x\)</span> determines whether we add <span class="math inline">\(b_1\)</span> or not: if it equals 1 (alcoholic beer), then our prediction equals <span class="math inline">\(b_0 + b_1\)</span>; if it equals 0 (non-alcoholic beer), our prediction equals <span class="math inline">\(b_0\)</span>. As such, the parameter <span class="math inline">\(b_1\)</span> determines the group difference: we can employ a hypothesis test to see if <span class="math inline">\(b_1\)</span> equals 0 or not and therefore whether the tastiness ratings meaningfully differ between the two conditions. Our hypotheses are as follows, with the alternative hypothesis’ predictions characterized by a Cauchy distribution, with its scale set to 0.707: <span class="math display">\[\mathcal{H_0}: b_1 = 0 \]</span> <span class="math display">\[\mathcal{H_1}: b_1 \sim Cauchy(0.707).\]</span> In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a> we saw how the Cauchy prior can be specified, how to test these hypotheses through the Bayes factor, and how to interpret the posterior distribution for parameter estimation. The bottom line of the Bayesian <span class="math inline">\(t\)</span>-test is that we can compare the predictions made by the two hypotheses: <span class="math inline">\(\mathcal{H_0}\)</span> goes all-in on 0 being the true value, while <span class="math inline">\(\mathcal{H_1}\)</span> spreads its bets more, across a range of values for <span class="math inline">\(b_1\)</span> (the exact spread of its bets is characterized by the Cauchy distribution). For hypothesis testing (or, model selection), we can look at the Bayes factor that takes the ratio of each model’s marginal likelihood (see <a href="03-estimation.html#sec-marginal-likelihood"><span>Section&nbsp;3.2.2</span></a>) of each model: how likely are the data under <span class="math inline">\(\mathcal{H_0}\)</span>, and how likely are the data under <span class="math inline">\(\mathcal{H_1}\)</span>?</p>
-<p>What we will do the coming section, is expand on this idea of modeling differences between groups, and comparing the marginal likelihoods of two models for hypothesis testing. We then generalize the procedure to allow for more than 2 groups, and more than 1 predictor variable (i.e., ANOVA).</p>
+<p>So far, we have discussed analyses that are fairly simple in terms of the number of parameters of interest. We specified different models that made different statements about values of this single parameter (e.g., <span class="math inline">\(\theta\)</span> for the binomial test, <span class="math inline">\(\delta\)</span> for the <span class="math inline">\(t\)</span>-tests, or <span class="math inline">\(\rho\)</span> for the correlation), and conducted hypothesis tests by pairwise comparison of two models (e.g., <a href="05-more-tests.html#fig-beer-tastiness-correlation-posterior">Figure&nbsp;<span>5.9</span></a>). For more complex scenarios (i.e., with more predictor variables), many different models can be constructed, each with multiple parameters. In this chapter, we will shine a Bayesian light on the ANOVA, and see how the Analysis of Variance can benefit from the Bayesian tools we have discussed so far.</p>
+<p>In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a>, the Bayesian <span class="math inline">\(t\)</span>-test was introduced. Since a difference in means (standardized or not) is on a continuous scale, without hard bounds (as opposed to the correlation, or proportion), the type of distribution that was used to characterize each model’s predictions was the Cauchy distribution. For the <span class="math inline">\(t\)</span>-test, there is only one parameter needed to model the difference between two groups. For instance, if we stick to the beer example, and we are trying to model the tastiness ratings (<span class="math inline">\(y\)</span>) by looking at whether the beer contained alcohol, or not (<span class="math inline">\(x = 1\)</span> for alcoholic, while <span class="math inline">\(x = 0\)</span> for non-alcoholic). We can now write the <span class="math inline">\(t\)</span>-test model as a linear regression, where we model the outcome variable <span class="math inline">\(y\)</span> as a function of an intercept (<span class="math inline">\(b_0\)</span>) and a single regression coefficient that models the group difference (<span class="math inline">\(b_1\)</span>):<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> <span class="math display">\[ y_i = b_0 + b_1 \times x_i. \]</span> By modeling tastiness rating as such, the variable <span class="math inline">\(x\)</span> determines whether we add <span class="math inline">\(b_1\)</span> or not: if it equals 1 (alcoholic beer), then our prediction equals <span class="math inline">\(b_0 + b_1\)</span>; if it equals 0 (non-alcoholic beer), our prediction equals <span class="math inline">\(b_0\)</span>. As such, the parameter <span class="math inline">\(b_1\)</span> determines the group difference: we can employ a hypothesis test to see if <span class="math inline">\(b_1\)</span> equals 0 or not and therefore whether the tastiness ratings meaningfully differ between the two conditions. Our hypotheses are as follows, with the alternative hypothesis’ predictions characterized by a Cauchy distribution, with its scale set to 0.707: <span class="math display">\[\mathcal{H_0}: b_1 = 0 \]</span> <span class="math display">\[\mathcal{H_1}: b_1 \sim Cauchy(0.707).\]</span> In <a href="05-more-tests.html#sec-bayesian-ttest"><span>Section&nbsp;5.1</span></a> we saw how the Cauchy prior can be specified, how to test these hypotheses through the Bayes factor, and how to interpret the posterior distribution for parameter estimation. The bottom line of the Bayesian <span class="math inline">\(t\)</span>-test is that we can compare the predictions made by the two hypotheses: <span class="math inline">\(\mathcal{H_0}\)</span> goes all-in on 0 being the true value, while <span class="math inline">\(\mathcal{H_1}\)</span> spreads its bets more, across a range of values for <span class="math inline">\(b_1\)</span> (the exact spread of its bets is characterized by the Cauchy distribution). For hypothesis testing (or, model selection), we can look at the Bayes factor that takes the ratio of each model’s marginal likelihood (see <a href="03-estimation.html#sec-marginal-likelihood"><span>Section&nbsp;3.2.2</span></a>): how likely are the data under <span class="math inline">\(\mathcal{H_0}\)</span>, and how likely are the data under <span class="math inline">\(\mathcal{H_1}\)</span>?</p>
+<p>What we will do in the coming section is expand on this idea of modeling differences between groups, and comparing the marginal likelihoods of two models for hypothesis testing. We then generalize the procedure to allow for more than 2 groups, and more than 1 predictor variable (i.e., ANOVA).</p>
 <section id="more-beer-analyses" class="level2" data-number="7.1">
 <h2 data-number="7.1" class="anchored" data-anchor-id="more-beer-analyses"><span class="header-section-number">7.1</span> More Beer Analyses</h2>
 <p>Continuing with the beer example, we can expand on the regression equation above, and add another regression weight that encodes whether someone correctly identified the beer:</p>
@@ -226,12 +231,12 @@ div.csl-indent {
 <li><span class="math inline">\(\mathcal{M_C}\)</span>: model with the intercept <span class="math inline">\(b_0\)</span> and the main effect of correct identification <span class="math inline">\(b_2\)</span></li>
 <li><span class="math inline">\(\mathcal{M}_{A+C}\)</span>: model with the intercept <span class="math inline">\(b_0\)</span> and the two main effects</li>
 </ul>
-<p>Each of these models makes various statements about all the possible regression weights. Again, what can help is think of the betting analogy: the model is at the casino, and bets money on likely values of each of the parameters. Some models go “all-in” on some values (e.g., Sarah and Paul from <a href="02-models.html#sec-models-make-predictions"><span>Section&nbsp;2.1</span></a>, who did not spread bets across multiple values, but put all money on 0). For instance, <span class="math inline">\(\mathcal{M_A}\)</span> will spread their bets across multiple values for <span class="math inline">\(b_1\)</span>, but will strictly bet on 0 for <span class="math inline">\(b_2\)</span>. In doing so, <span class="math inline">\(\mathcal{M_A}\)</span> allows for difference in tastiness ratings between alcoholic and non-alcoholic beer, but is not modeling any effect of whether the beer was correctly identified. Exactly how <span class="math inline">\(\mathcal{M_A}\)</span> spreads their bets on the values for <span class="math inline">\(b_1\)</span> depends on how their prior distribution is specified.</p>
+<p>Each of these models makes various statements about all the possible regression weights. Again, what can help is to think of the betting analogy: the model is at the casino, and bets money on likely values of each of the parameters. Some models go “all-in” on some values (e.g., Sarah and Paul from <a href="02-models.html#sec-models-make-predictions"><span>Section&nbsp;2.1</span></a>, who did not spread bets across multiple values, but each put all their money on a single value, 0.5 or 0.8). For instance, <span class="math inline">\(\mathcal{M_A}\)</span> will spread their bets across multiple values for <span class="math inline">\(b_1\)</span>, but will strictly bet on 0 for <span class="math inline">\(b_2\)</span>. In doing so, <span class="math inline">\(\mathcal{M_A}\)</span> allows for difference in tastiness ratings between alcoholic and non-alcoholic beer, but is not modeling any effect of whether the beer was correctly identified. Exactly how <span class="math inline">\(\mathcal{M_A}\)</span> spreads their bets on the values for <span class="math inline">\(b_1\)</span> depends on how their prior distribution is specified.</p>
 <section id="priors-in-anova" class="level3" data-number="7.1.1">
 <h3 data-number="7.1.1" class="anchored" data-anchor-id="priors-in-anova"><span class="header-section-number">7.1.1</span> Priors in ANOVA</h3>
-<p>In Bayesian inference, the prior distribution of a model characterizes what a model predicts. Typically, a null model will have a spike prior on 0, while an alternative model will allow the parameter to vary. Exactly how the model allows the parameter to vary is indicated by its prior distribution. For the <span class="math inline">\(t\)</span>-test, the prior distribution is specified for the effect size <span class="math inline">\(\delta\)</span>, which is generally done by the Cauchy distribution (<a href="05-more-tests.html#sec-prior-ttest"><span>Section&nbsp;5.1.1</span></a> discusses the Cauchy prior more elaborately). This distribution has a single scale parameter that can be adjusted, to make the model bet an a wider or narrower range of values. By default, the scale parameter is set to <span class="math inline">\(\frac{1}{\sqrt{2}} = 0.707\)</span>, which means that the alternative model bets around 50% of its money on values between -0.707 and 0.707. The reasoning behind this is that these are conventional effect sizes found in social sciences.</p>
+<p>In Bayesian inference, the prior distribution of a model characterizes what a model predicts. Typically, a null model will have a spike prior on 0, while an alternative model will allow the parameter to vary. Exactly how the model allows the parameter to vary is indicated by its prior distribution. For the <span class="math inline">\(t\)</span>-test, the prior distribution is specified for the effect size <span class="math inline">\(\delta\)</span>, which is generally done by the Cauchy distribution (<a href="05-more-tests.html#sec-prior-ttest"><span>Section&nbsp;5.1.1</span></a> discusses the Cauchy prior more elaborately). This distribution has a single scale parameter that can be adjusted, to make the model bet on a wider or narrower range of values. By default, the scale parameter is set to <span class="math inline">\(\frac{1}{\sqrt{2}} = 0.707\)</span>, which means that the alternative model bets around 50% of its money on values between -0.707 and 0.707. The reasoning behind this is that these are conventional effect sizes found in social sciences.</p>
 <p>In expanding to ANOVA (or, more than 1 effect, or more than 2 groups), we are adding additional <span class="math inline">\(b\)</span> parameters to the model. Each of these parameters requires a prior distribution, to make concrete what each model is predicting. The generalization for the Cauchy distribution is here to instead use a <em>multivariate Cauchy</em> distribution for each factor variable, which is also governed by a single scale parameter.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
-<p>The reasoning with the prior distributions in the ANOVA is exactly the same as for the <span class="math inline">\(t\)</span>-test: the prior reflects which values of the parameter are being bet on. Based on the observed data, some of those values predicted the data well, and some other will have predicted the data poorly. We can look at how well the model predicted overall, by looking at how well it predicted the data on average: averaged over all the values that it bet on. The average quality of a model’s predictions is its marginal likelihood.</p>
+<p>The reasoning with the prior distributions in the ANOVA is exactly the same as for the <span class="math inline">\(t\)</span>-test: the prior reflects which values of the parameter are being bet on. Based on the observed data, some of those values predicted the data well, and some others will have predicted the data poorly. We can look at how well the model predicted overall, by looking at how well it predicted the data on average: averaged over all the values that it bet on. The average quality of a model’s predictions is its marginal likelihood.</p>
 <p>The figures below illustrate how each of the three “alternative” models <span class="math inline">\(\mathcal{M_A}\)</span>, <span class="math inline">\(\mathcal{M_C}\)</span>, <span class="math inline">\(\mathcal{M_{A+C}}\)</span> can formalize their predictions through their prior distributions. When a model posits there is no effect of a predictor, such as <span class="math inline">\(\mathcal{M_A}\)</span> for <span class="math inline">\(b_2\)</span>, they go “all-in” on the value and have a spike prior at 0.</p>
 <div class="cell" data-layout-align="center" data-hash="07-anova_cache/html/fig-three-cauchy-dists_74f593e7a6869deed481ec2a55e8549b">
 <div class="cell-output-display">
@@ -267,7 +272,7 @@ div.csl-indent {
 </section>
 <section id="results" class="level3" data-number="7.1.2">
 <h3 data-number="7.1.2" class="anchored" data-anchor-id="results"><span class="header-section-number">7.1.2</span> Results</h3>
-<p>For each model, we can compute the marginal likelihood: how well did all values postulated by the model (as reflected by the prior distributions) match the data, on average? Now, in the earlier chapters it was still somewhat comprehensive to show these calculations. As our models grow more complex however, the computations that underlie the analyses become extremely complex (the specifics are also out of my own grasp), and we need modern computers with magical algorithms to compute the marginal likelihoods of each model. Thankfully, in 2023 everyone possesses a fast enough computer (ideally with JASP installed on it), so conducting a Bayesian ANOVA can be done with the press of a button.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <a href="#fig-beer-anova-screenshot">Figure&nbsp;<span>7.2</span></a> below shows how the interface looks for specifying the analysis in JASP. Since we have a mixed design, we use the RM ANOVA, where both within and between subject factors can be specified (<strong>note:</strong> we omit the interaction effect for now).</p>
+<p>For each model, we can compute the marginal likelihood: how well did all values postulated by the model (as reflected by the prior distributions) match the data, on average? Now, in the earlier chapters it was still somewhat comprehensible to show these calculations. As our models grow more complex however, the computations that underlie the analyses become extremely complex (the specifics are also out of my own grasp), and we need modern computers with magical algorithms to compute the marginal likelihoods of each model. Thankfully, nowadays everyone possesses a fast enough computer (ideally with JASP installed on it), so conducting a Bayesian ANOVA can be done with the press of a button.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a> <a href="#fig-beer-anova-screenshot">Figure&nbsp;<span>7.2</span></a> below shows how the interface looks for specifying the analysis in JASP. Since we have a mixed design, we use the RM ANOVA, where both within and between subject factors can be specified (<strong>note:</strong> we omit the interaction effect for now).</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
 <div id="fig-beer-anova-screenshot" class="quarto-figure quarto-figure-center anchored">
@@ -294,7 +299,7 @@ div.csl-indent {
 </div>
 <p>There are quite some numbers in there so let’s unpack these one by one:</p>
 <ul>
-<li><strong>P(M)</strong>: The prior model probability - how likely is each model, <em>before</em> seeing the data? Typically we evenly divide the odds between all models. Here, we have four models, so assign 0.25 to each model.
+<li><strong>P(M)</strong>: The prior model probability - how likely is each model, <em>before</em> seeing the data? Typically we evenly divide the probability between all models. Here, we have four models, so assign 0.25 to each model.
 <ul>
 <li>Interpretation for BeerType model: “Before looking at the data there is a 25% probability that this model is the true model, out of these four models”.</li>
 </ul></li>
@@ -302,24 +307,24 @@ div.csl-indent {
 <ul>
 <li>Interpretation for BeerType model: “After looking at the data there is a 44.6% probability that this model is the true model, out of these four models”.</li>
 </ul></li>
-<li><strong><span class="math inline">\(\textbf{BF}_{M}\)</span></strong>: The posterior model odds - the updating factor from prior to posterior model probability.
+<li><strong><span class="math inline">\(\textbf{BF}_{M}\)</span></strong>: The model Bayes factor - the updating factor from prior model odds to posterior model odds.
 <ul>
 <li>For the BeerType model, we compute this by taking the prior and posterior odds: <span class="math inline">\(0.446/(1 - 0.446) \times (1 - 0.25)/0.25 \approx 2.42\)</span>.</li>
 <li>Interpretation for BeerType model: “The data are 2.42 times more likely under this model, than under all the other models combined”</li>
 </ul></li>
-<li><strong><span class="math inline">\(\textbf{BF}_{10}\)</span></strong>: The pairwise Bayes factor - how likely are the data under this model, compared to another model? By default, JASP gives the comparison between the model in the row, and the best model (i.e., with the highest posterior model probability). For instance, to compute <span class="math inline">\(\text{BF}_{10}\)</span> for the “BeerType” model, we take the ratio of its posterior model probability, and divide it by the posterior model probability of the best model (i.e., “BeerType + CorrectIdentify”): <span class="math inline">\(0.446 / 0.554 \approx 0.81\)</span>.
+<li><strong><span class="math inline">\(\textbf{BF}_{10}\)</span></strong>: The pairwise Bayes factor - how likely are the data under this model, compared to another model? By default, JASP gives the comparison between the model in the row, and the best model (i.e., with the highest posterior model probability). For instance, to compute <span class="math inline">\(\text{BF}_{10}\)</span> for the “BeerType” model, we take the ratio of its posterior model probability, and divide it by the posterior model probability of the best model (i.e., “BeerType + CorrectIdentify”): <span class="math inline">\(0.446 / 0.554 \approx 0.81\)</span> (this shortcut works because all models have the same prior model probability).
 <ul>
 <li>Interpretation for BeerType model: “The data are 0.81 times more likely under this model, than under the best model”.</li>
 </ul></li>
 <li>The error percentage is an estimate of the numerical accuracy of the underlying algorithms. See the section below for a more elaborate explanation.</li>
 </ul>
-<p>There are many different numbers to look at here, for each model. Personally, I would say the two Bayes factor columns are the most informative: these allow direct comparisons between the models. Based on which column (<span class="math inline">\(\text{BF}_{M}\)</span> or <span class="math inline">\(\text{BF}_{10}\)</span>), there are different comparisons. While <span class="math inline">\(\text{BF}_{10}\)</span> shows the pairwise comparisons (which is the Bayes factor we have seen before in this booklet), <span class="math inline">\(\text{BF}_{M}\)</span> shows a comparison between a single model, and all other models combined. Based on either of the BF columns, we can see that the model with the two main effects predicted the data the best (so in in the first row, <span class="math inline">\(\textbf{BF}_{10}\)</span> compares the two main effects model to itself), although the model with only BeerType is not doing so much worse: the data are 0.81 times more likely under this model, than under the model with the two main effects.</p>
-<p>Because <span class="math inline">\(\textbf{BF}_{10}\)</span> is a ratio between two models’ marginal likelihoods, we can use the Bayes factors in that column to conduct additional model comparisons. For instance, to compare the BeerType model directly to the null model, we can take those two models’ <span class="math inline">\(\textbf{BF}_{10}\)</span> values and divide them by each other: <span class="math inline">\(0.806 / 8.284e-6 \approx 97296\)</span>. Therefore, the data are 97296 times more likely under the BeerType model than under the null model. This property is known as <strong>Bayes factor transitivity</strong>.</p>
-<p>So far, this procedure is fairly similar to the frequentist ANOVA, in the sense that we are comparing different model to each other (although here we are using way more intuitive and useful model comparison metrics…). However, the Bayesian ANOVA also allows us to look at the combined evidence in favor of the inclusion of a certain predictor. To do so, we tick the “effects” checkbox in JASP.</p>
+<p>There are many different numbers to look at here, for each model. Personally, I would say the two Bayes factor columns are the most informative: these allow direct comparisons between the models. Depending on which column (<span class="math inline">\(\text{BF}_{M}\)</span> or <span class="math inline">\(\text{BF}_{10}\)</span>), there are different comparisons. While <span class="math inline">\(\text{BF}_{10}\)</span> shows the pairwise comparisons (which is the Bayes factor we have seen before in this booklet), <span class="math inline">\(\text{BF}_{M}\)</span> shows a comparison between a single model, and all other models combined. Based on either of the BF columns, we can see that the model with the two main effects predicted the data the best (so in the first row, <span class="math inline">\(\textbf{BF}_{10}\)</span> compares the two main effects model to itself), although the model with only BeerType is not doing so much worse: the data are 0.81 times more likely under this model, than under the model with the two main effects.</p>
+<p>Because <span class="math inline">\(\textbf{BF}_{10}\)</span> is a ratio between two models’ marginal likelihoods, we can use the Bayes factors in that column to conduct additional model comparisons. For instance, to compare the BeerType model directly to the null model, we can take those two models’ <span class="math inline">\(\textbf{BF}_{10}\)</span> values and divide them by each other: <span class="math inline">\(0.806 / (8.284 \times 10^{-6}) \approx 97296\)</span>. Therefore, the data are 97296 times more likely under the BeerType model than under the null model. This property is known as <strong>Bayes factor transitivity</strong>.</p>
+<p>So far, this procedure is fairly similar to the frequentist ANOVA, in the sense that we are comparing different models to each other (although here we are using way more intuitive and useful model comparison metrics…). However, the Bayesian ANOVA also allows us to look at the combined evidence in favor of the inclusion of a certain predictor. To do so, we tick the “effects” checkbox in JASP.</p>
 </section>
 <section id="analysis-of-effects" class="level3" data-number="7.1.4">
 <h3 data-number="7.1.4" class="anchored" data-anchor-id="analysis-of-effects"><span class="header-section-number">7.1.4</span> Analysis of Effects</h3>
-<p>Instead of looking at individual models, and how well they predicted the data, we can instead look at each predictor variable, and how well the models predicted that included that predictor. In doing so, we are again comparing groups of models, instead of comparing a single model to a single model. For instance, if we want to quantify the evidence we have for including BeerType as a predictor variable, we can look at how well the models predicted that included it, versus the models that did not include it. By doing so, we are comparing the models [BeerType; BeerType + CorrectIdentify] to the models [null; CorrectIdentify].</p>
+<p>Instead of looking at individual models, and how well they predicted the data, we can instead look at each predictor variable, and how well the models that included that predictor predicted the data. In doing so, we are again comparing groups of models, instead of comparing a single model to a single model. For instance, if we want to quantify the evidence we have for including BeerType as a predictor variable, we can look at how well the models that included it predicted the data, versus the models that did not include it. By doing so, we are comparing the models [BeerType; BeerType + CorrectIdentify] to the models [null; CorrectIdentify].</p>
 <p>For this comparison, we can look at the metrics presented in the Analysis of Effects table:</p>
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
@@ -339,11 +344,11 @@ div.csl-indent {
 </ul></li>
 <li><strong>P(incl|data)</strong>: The posterior inclusion probability. Here we sum all the posterior model probabilities of the models that include this predictor.
 <ul>
-<li>CorrectIdentify is included in 2 models that have a posterior model probability of 0.563 and something very small, so its posterior inclusion probability is approximately 0.563.</li>
+<li>CorrectIdentify is included in 2 models that have a posterior model probability of 0.554 and something very small, so its posterior inclusion probability is approximately 0.554.</li>
 </ul></li>
 <li><strong><span class="math inline">\(\textbf{BF}_{incl}\)</span></strong> : The inclusion Bayes factor. It quantifies the change from prior inclusion probability to posterior inclusion probability for each component.
 <ul>
-<li>For CorrectIdentify, this is calculated as follows: <span class="math inline">\(0.554/(1 - 0.554) * (1 - 0.5)/0.5 \approx 1.24\)</span></li>
+<li>For CorrectIdentify, this is calculated as follows: <span class="math inline">\(0.554/(1 - 0.554) \times (1 - 0.5)/0.5 \approx 1.24\)</span></li>
 </ul></li>
 </ul>
 <p>The most important column here is the inclusion Bayes factor: it quantifies how well the models with a certain predictor do, compared to the models without. We can see here that there is overwhelming evidence in favor of including BeerType, but that there is not so much evidence for including CorrectIdentify (also no evidence in favor of its <em>exclusion</em> - this is known as absence of evidence, rather than evidence of absence).</p>
@@ -361,7 +366,7 @@ div.csl-indent {
 </div>
 </div>
 </div>
-<p>What the table presents here, are the mean estimates (and credible intervals) for the group differences. It is encoded a bit differently, such that <span class="math inline">\(0.5b\)</span> is added to/subtracted from the alcoholic and non-alcoholic condition. Still, it characterizes what this specific model predicts for certain participants in certain situations. For instance, if we had to give our best guess of a person tasting a non-alcoholic beer, who correctly identified it, based on the model with two main effects? <span class="math display">\[48.4 + (-9.637) + (-4.151)  = 34.552\]</span> And if they would have guess incorrectly: <span class="math display">\[48.4 + (-9.637) + (4.151) =  42.854\]</span></p>
+<p>What the table presents here, are the mean estimates (and credible intervals) for the group differences. It is encoded a bit differently, such that <span class="math inline">\(0.5b\)</span> is added to/subtracted from the alcoholic and non-alcoholic condition. Still, it characterizes what this specific model predicts for certain participants in certain situations. For instance, what would be our best guess for the rating of a person tasting a non-alcoholic beer, who correctly identified it, based on the model with two main effects? <span class="math display">\[48.397 + (-9.637) + (-4.151)  = 34.609\]</span> And if they had guessed incorrectly: <span class="math display">\[48.397 + (-9.637) + (4.151) =  42.911\]</span></p>
 </section>
 <section id="model-averaging" class="level3" data-number="7.1.6">
 <h3 data-number="7.1.6" class="anchored" data-anchor-id="model-averaging"><span class="header-section-number">7.1.6</span> Model Averaging</h3>
@@ -371,20 +376,212 @@ div.csl-indent {
 <div id="fig-beer-anova-model-averaged-estimates" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="Figures/ANOVA_ModelAveragedMainEffects.png" class="img-fluid figure-img" style="width:90.0%"></p>
-<figcaption class="figure-caption">Figure&nbsp;7.6: The estimates for the model with the two predictor variables.</figcaption>
+<figcaption class="figure-caption">Figure&nbsp;7.6: The model-averaged estimates, combining the predictions of all four models.</figcaption>
 </figure>
 </div>
 </div>
 </div>
-<section id="error-percentage" class="level4" data-number="7.1.6.1">
-<h4 data-number="7.1.6.1" class="anchored" data-anchor-id="error-percentage"><span class="header-section-number">7.1.6.1</span> Error percentage</h4>
+</section>
+<section id="error-percentage" class="level3" data-number="7.1.7">
+<h3 data-number="7.1.7" class="anchored" data-anchor-id="error-percentage"><span class="header-section-number">7.1.7</span> Error percentage</h3>
 <p>In order to obtain the marginal likelihood and posterior distributions in the Bayesian ANOVA (and many Bayesian analyses), a type of method called <a href="https://en.wikipedia.org/wiki/Markov_chain_Monte_Carlo">Markov chain Monte Carlo (MCMC) sampling</a> is used. Since these methods are sampling-based, it introduces slight variations in the results. For instance, running the same Bayesian ANOVA twice will lead to slight fluctuations in the Bayes factors. In JASP, the degree of fluctuation is indicated by the “error %” column. These percentages indicate how much the Bayes factor will fluctuate from run to run. Generally, having an error % below 20 (or 10, if you want to be more strict) is acceptable: it means that a Bayes factor of 10 will deviate between 8 and 12, which does not change its qualitative interpretation. See also <a href="https://www.cairn.info/revue-l-annee-psychologique-2020-1-page-73.htm#no7">this footnote</a> in the tutorial paper.</p>
 </section>
 </section>
+<section id="sec-anova-exercises" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="sec-anova-exercises"><span class="header-section-number">7.2</span> Exercises</h2>
+<p>Below are two exercises on the Bayesian ANOVA. In the first one, you will conduct the analysis yourself in JASP, continuing with the beer data from this chapter. The second one only requires you to read the output tables of a Bayesian ANOVA. The answer to each question is hidden underneath it, so give it a try yourself before you take a peek! The .jasp file was made with JASP 0.99, so you need JASP 0.99 or higher to open it (the webpage link shows the same output without JASP).</p>
+<section id="even-more-beer-analyses---interaction-effect" class="level3" data-number="7.2.1">
+<h3 data-number="7.2.1" class="anchored" data-anchor-id="even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2.1</span> Even More Beer Analyses - Interaction Effect?!</h3>
+<p>In the analyses above, we left out the interaction effect between BeerType and CorrectIdentify. Time to bring it back! An interaction effect here would mean that the difference in tastiness between the alcoholic and the non-alcoholic beer depends on whether someone correctly identified the alcoholic beer. For instance, perhaps the people who could taste the difference liked the alcoholic beer a lot better, while the people who guessed incorrectly liked both beers about equally?</p>
+<ul>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_Data.csv">csv file with the data</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ANOVAResults.html">JASP output with only the results</a></li>
+<li><a href="https://johnnydoorn.github.io/teaching-statistics/bayesian-exercises/BeerTasting_ANOVAResults.jasp">JASP file with the results</a></li>
+</ul>
+<ol type="1">
+<li><p>Download the csv file using the link above and open the data in JASP. Go to “ANOVA” and choose the Bayesian “Repeated Measures ANOVA”. Set up the analysis as in <a href="#fig-beer-anova-screenshot">Figure&nbsp;<span>7.2</span></a>, but this time keep the interaction effect in the model (JASP adds it by default, which you can check under “Model”). Under “Additional Options”, tick “Set seed” and keep the seed at 1, so that rerunning the analysis gives the same numbers (and your numbers should be very close to the ones in the answers below).</p></li>
+<li><p>How many models does JASP compare now, and what is the prior model probability of each model?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>JASP now compares five models, namely the null model, the two models with a single main effect, the model with both main effects, and the model with both main effects plus their interaction. Each model gets the same prior model probability, so <span class="math inline">\(1/5 = 0.2\)</span>. You might have expected some more models, such as a model with only the interaction effect. JASP leaves those out, because it does not make much sense to model an interaction without also modeling the main effects that it consists of (this is known as the principle of marginality, which you can find under “Additional Options”).</p>
+</div>
+</div>
+</div></li>
+<li><p>Which model predicted the data best? How many times more likely are the data under this model than under the model with only the two main effects (the best model in <a href="#fig-beer-anova-model-comparison">Figure&nbsp;<span>7.3</span></a>)?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The model with both main effects and their interaction predicted the data best by far. Its posterior model probability is (rounded) 1, and its <span class="math inline">\(\text{BF}_{M}\)</span> is <span class="math inline">\(2.145 \times 10^5\)</span>. Since this is the best model, the <span class="math inline">\(\text{BF}_{10}\)</span> column compares all other models to it. For the model with only the two main effects, <span class="math inline">\(\text{BF}_{10} = 1.009 \times 10^{-5}\)</span>, so the data are <span class="math inline">\(1 / (1.009 \times 10^{-5}) \approx 99{,}000\)</span> times more likely under the model with the interaction effect than under the model without it.</p>
+</div>
+</div>
+</div></li>
+<li><p>Tick “Effects” (“Across all models”). What is the prior inclusion probability of the interaction effect? And why is it lower than the prior inclusion probability of each main effect?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The interaction effect is included in only one of the five models, so its prior inclusion probability is <span class="math inline">\(0.2\)</span>. Each main effect is included in three of the five models (on its own, together with the other main effect, and in the model with the interaction), so their prior inclusion probability is <span class="math inline">\(3 \times 0.2 = 0.6\)</span>.</p>
+</div>
+</div>
+</div></li>
+<li><p>What is the inclusion Bayes factor for the interaction effect? Do the data provide evidence for or against including the interaction effect, and how strong is this evidence?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The inclusion Bayes factor for the interaction effect is <span class="math inline">\(2.145 \times 10^5\)</span>, which is overwhelming evidence in favor of including the interaction effect. In other words, the data are about 214,500 times more likely under the model with the interaction than under the models without it.</p>
+<p>You may also have noticed that the inclusion Bayes factor for CorrectIdentify jumped from 1.24 (in <a href="#fig-beer-anova-effects">Figure&nbsp;<span>7.4</span></a>) to <span class="math inline">\(7.788 \times 10^4\)</span>. This does <strong>not</strong> mean that we suddenly have overwhelming evidence for a main effect of CorrectIdentify! Across all models, the model with the interaction also counts as a model that includes CorrectIdentify, and that model predicted the data very well. If you select “Across matched models” instead, JASP only compares models that differ in that one effect (see the third analysis in the JASP file), and the inclusion Bayes factor for CorrectIdentify drops to 1.178.</p>
+</div>
+</div>
+</div></li>
+<li><p>Tick “Descriptives” to get the mean rating in each condition. How would you describe the interaction effect in words?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The people who correctly identified the alcoholic beer liked it a lot better than the non-alcoholic beer (mean ratings of 59.15 vs.&nbsp;28.71). The people who guessed incorrectly show the opposite pattern, and actually rated the non-alcoholic beer a bit higher than the alcoholic beer (57.67 vs.&nbsp;49.47). So the difference in tastiness between the two beers depends on whether someone correctly identified the alcoholic beer, which is exactly what an interaction effect means.</p>
+</div>
+</div>
+</div></li>
+<li><p>Under “Single Model Inference”, drag all three terms (so including the interaction effect) to “Specific Model Terms” and tick “Estimates”. Based on this model, what is our best guess for the rating of a person tasting the non-alcoholic beer, who correctly identified the alcoholic beer?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Just like for the model with only the main effects, we start at the intercept and add the estimates that belong to this person, but now we also add the estimate for the interaction effect (“NonAlcoholic &amp; 1”): <span class="math display">\[48.48 + (-5.360) + (-4.004) + (-9.298) = 29.82\]</span> This is quite close to the observed mean rating of this group (28.71).</p>
+</div>
+</div>
+</div></li>
+<li><p>Take a look at the “error %” column of the Model Comparison table. Do you trust these Bayes factors? What happens when you untick “Set seed” and run the analysis a couple of times?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The error percentages range from 1.803 to 4.738, which is well below 20 (or 10, if you want to be more strict), so the Bayes factors are accurate enough to interpret. Without the seed, each run gives slightly different Bayes factors, but these fluctuations are small, and they do not change any of our conclusions.</p>
+</div>
+</div>
+</div></li>
+<li><p>Under “Additional Options”, change “r scale fixed effects” from 0.5 to 1 (the second analysis in the JASP file uses this setting). What happens to the inclusion Bayes factor for the interaction effect? Can you explain why?</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The inclusion Bayes factor for the interaction effect decreases a little, from <span class="math inline">\(2.145 \times 10^5\)</span> to <span class="math inline">\(1.902 \times 10^5\)</span>. With a wider prior, the models bet more of their money on large effects, while the observed effects are not that extreme. Those bets are mostly lost, and this hurts the models with more parameters (here, the model with the interaction) a bit more. Still, the evidence for the interaction effect remains overwhelming, so our conclusion is robust to this change in the prior.</p>
+</div>
+</div>
+</div></li>
+</ol>
 </section>
-<section id="even-more-beer-analyses---interaction-effect" class="level2" data-number="7.2">
-<h2 data-number="7.2" class="anchored" data-anchor-id="even-more-beer-analyses---interaction-effect"><span class="header-section-number">7.2</span> Even More Beer Analyses - Interaction Effect?!</h2>
-<p>As practice, try adding an interaction effect between BeerType and CorrectIdentify. What do you conclude?</p>
+<section id="mais-study-drug" class="level3" data-number="7.2.2">
+<h3 data-number="7.2.2" class="anchored" data-anchor-id="mais-study-drug"><span class="header-section-number">7.2.2</span> Mai’s Study Drug</h3>
+<p>Mai has invented a new drug that is supposed to help studying, but she is unsure about its effects. In order to test her invention, she gives 60 of her classmates the drug, and 60 others a placebo. Since she is doing science anyway, she also wants to see if there are differences in study methods (alone vs.&nbsp;together) in people’s final grade. After the semester is over, Mai excitedly conducts a Bayesian ANOVA to test whether there are differences in performance between the different drug conditions or study methods. She obtains the following table:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-anova-exercise-study-drug" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="Figures/ANOVA_ExerciseStudyDrug.png" class="img-fluid figure-img" style="width:90.0%"></p>
+<figcaption class="figure-caption">Figure&nbsp;7.7: Mai’s Bayesian ANOVA, with drug type (drug vs.&nbsp;placebo) and study type (alone vs.&nbsp;together) as predictors of the final grade.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Indicate for each of the statements below whether it is true or false.</p>
+<ol type="a">
+<li>The model with the main effects of drug type and study type predicted the data the best.</li>
+<li>We have moderate evidence (&gt; 3) that there is no interaction effect.</li>
+<li>We have moderate evidence (&gt; 3) that there is an effect of the drug.</li>
+<li>The marginal likelihood of the null model is higher than that of the other models.</li>
+<li>The data are 0.636 times more likely under the studyType model than under the null model.</li>
+</ol>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Answer
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ol type="a">
+<li>False. The null model predicted the data the best (it has the highest posterior model probability, 0.648, and the highest <span class="math inline">\(\text{BF}_{M}\)</span>, 7.377), while the model with the two main effects actually comes in last.</li>
+<li>True. The inclusion Bayes factor for the interaction is lower than 0.2 (0.144), so the exclusion Bayes factor is greater than 5 (<span class="math inline">\(1/0.144 \approx 6.9\)</span>).</li>
+<li>False. There is evidence against the effect of the drug, not in favor (inclusion BF = 0.182, so the exclusion BF is <span class="math inline">\(1/0.182 \approx 5.5\)</span>).</li>
+<li>True. The null model performed best, which means it had the highest marginal likelihood. Since all five models started out with the same prior model probability (0.2), the model with the highest posterior model probability is also the model with the highest marginal likelihood.</li>
+<li>False. To compare the studyType model to the null model, we can look in the <span class="math inline">\(\text{BF}_{10}\)</span> column (0.212), since the null model is the best model here. The <span class="math inline">\(\text{BF}_{M}\)</span> column compares the model to all other models.</li>
+</ol>
+</div>
+</div>
+</div>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list">
@@ -393,10 +590,11 @@ van den Bergh, Don, Johnny Van Doorn, Maarten Marsman, Tim Draws, Erik-Jan Van K
 </div>
 </div>
 </section>
+</section>
 <section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-<li id="fn1"><p>For an extra primer on how to write ANOVA as a regression, please read <a href="https://johnnydoorn.github.io/statistics-lectures/courses/SSR/SSR_2023-2024/MiscFiles_J/PredictingWithDummies">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>For an extra primer on how to write ANOVA as a regression, please read <a href="https://johnnydoorn.github.io/teaching-statistics/extra-texts/predicting-with-dummies-1-variable.html">here</a><a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn2"><p>Due to some underlying computational reasons, the scale is specified in a different way in the Bayesian ANOVA in JASP, compared to the <span class="math inline">\(t\)</span>-test. To get perfect agreement between the t-test and the ANOVA, the scale parameter for the ANOVA should be set to <span class="math inline">\(\frac{s}{\sqrt{2}}\)</span>, where <span class="math inline">\(s\)</span> is the scale used for the <span class="math inline">\(t\)</span>-test. For example, if the prior scale is set to 0.707 for the <span class="math inline">\(t\)</span>-test, the BF will be the same for the <span class="math inline">\(t\)</span>-test and ANOVA if we conduct an ANOVA with its scale set to <span class="math inline">\(\frac{0.707}{\sqrt{2}} = 0.5\)</span>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 <li id="fn3"><p>Although transitioning more to this “black box” framework is not so satisfying as being able to show all the computations.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
