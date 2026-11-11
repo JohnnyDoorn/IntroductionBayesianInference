@@ -111,13 +111,14 @@ In @fig-two-models-binomial-onesided-predictions below, you can see the marginal
 par(mfrow = c(1, 2), cex.main = 0.95)
 cols <- viridis::viridis(6)
 
+set.seed(123) # same draws in every render (html and pdf)
 sampsU <- c(0:5, rbinom(1e5, 10, runif(1e5, 0.5, 1)))
 barplot(table(sampsU)/1e5, names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
         main = "Likely Outcomes under Betty's Model", col = cols[2], ylim = c(0,0.32))
 barplot(c(rep(0, 8), (table(sampsU)/1e5)[9]), add = TRUE, col = cols[6])
 
-samps <- rbeta(1e5, 3, 1)
-samps[samps<0.5] <- 1- samps[samps<0.5]
+set.seed(123) # same draws as David's marginal in chapter 3
+samps <- qbeta(runif(1e5, pbeta(0.5, 3, 1), 1), 3, 1) # truncated beta(3, 1)
 samps <- c(0:5, rbinom(1e5, 10, samps))
 barplot(table(samps)/1e5, names.arg = 0:10, xlab = "Number of heads", ylab = "Likelihood",
         main = "Likely Outcomes under David's Model", col = cols[5], ylim = c(0,0.32))

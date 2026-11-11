@@ -209,9 +209,9 @@ plot(1, 1, type ="n", xlim = c(0,1), ylim = c(0,4), bty = "n", main = "David's M
      las = 1, xlab = expression(theta), ylab = "Density")
 polygon(x =  c(mySeq, rev(mySeq)), y = c(rep(0, 1e3), rev(tBetFun(mySeq, 3, 1))), col = cols[5]) 
 
-# David's marginal
-samps <- rbeta(1e5, 3, 1)
-samps[samps<0.5] <- 1- samps[samps<0.5]
+# David's marginal (same seed and draws as his predictions in chapter 2)
+set.seed(123)
+samps <- qbeta(runif(1e5, pbeta(0.5, 3, 1), 1), 3, 1) # truncated beta(3, 1)
 samps <- c(0:5, rbinom(1e5, 10, samps))
 davMarLik <- (table(samps)/1e5)[9]
 ```
@@ -232,22 +232,21 @@ plot(ss, dd, type = "l", bty = "n", las = 1, ylab = bquote("P(Data |" ~ theta * 
 abline(h = davMarLik, lwd = 3, col = "purple")
 ```
 
-When we apply the Bayesian knowledge updating, we arrive at David's posterior knowledge. As before, the values that predicted better than average will have a higher posterior density than prior density, while the reverse holds for values of $\theta$ that predicted the data worse than average. Note that David excluded some values of $\theta$ a priori (similar to Sarah), namely those values between 0 and $0.5$. Since the prior density for those values is 0, the posterior density will also be 0, regardless of the observed data. For David's posterior distribution, the median equals $0.801$, and the 95% credible interval ranges from $0.568$ to $0.95$. Although this is fairly similar to Alex's posterior statistics (median $=0.764$, 95% CI = $[0.482, 0.940]$), they are not identical because both started with different prior beliefs and so will have different posterior beliefs. The interpretation of the median and CI will be the same, but now conditional on David's model: under David's model, there is a 95% probability that $\theta$ is between 0.546 and 0.95.
+When we apply the Bayesian knowledge updating, we arrive at David's posterior knowledge. As before, the values that predicted better than average will have a higher posterior density than prior density, while the reverse holds for values of $\theta$ that predicted the data worse than average. Note that David excluded some values of $\theta$ a priori (similar to Sarah), namely those values between 0 and $0.5$. Since the prior density for those values is 0, the posterior density will also be 0, regardless of the observed data. For David's posterior distribution, the median equals $0.801$, and the 95% credible interval ranges from $0.568$ to $0.95$. Although this is fairly similar to Alex's posterior statistics (median $=0.764$, 95% CI = $[0.482, 0.940]$), they are not identical because both started with different prior beliefs and so will have different posterior beliefs. The interpretation of the median and CI will be the same, but now conditional on David's model: under David's model, there is a 95% probability that $\theta$ is between 0.568 and 0.95.
 
-```{r prior-posterior-binomial-david, fig.cap='Prior and posterior distribution for David. Values that predicted the data better than average have received a boost in plausibility (i.e., posterior density > prior density), whie the reverse holds for values that predicted the data poorly.', fig.align='center', out.width='90%', echo = FALSE}
+```{r prior-posterior-binomial-david, fig.cap='Prior and posterior distribution for David. Values that predicted the data better than average have received a boost in plausibility (i.e., posterior density > prior density), while the reverse holds for values that predicted the data poorly.', fig.align='center', out.width='90%', echo = FALSE}
 #| label: fig-prior-posterior-binomial-david
 ss <- seq(0, 1, length.out = 1e4)
-priorD <- dbeta(ss, 3, 1)
-priorD <- ifelse(ss < 0.5, 0, priorD)
+priorD <- tBetFun(ss, 3, 1)
 dd <- dbinom(8, 10, ss)
-posterior <- (priorD * dd) / (davMarLik/ integrate(function(x) dbeta(x, 3, 1), lower = 0.5, upper = 1)$value)
+posterior <- priorD * dd / davMarLik
 par(cex = 1.4, cex.lab = 1.4, mar = c(5.1, 4.5, 4.1, 2.1))
 plot(ss, posterior, type = "l", bty = "n", las = 1, ylab = "Density", xlab = bquote(theta),
-     main = bquote("David's Prior and Posterior Distribution of" ~theta), ylim = c(0, 3),
+     main = bquote("David's Prior and Posterior Distribution of" ~theta), ylim = c(0, 4),
      lwd = 3, col = "darkorange")
 bords <- round(ss[round(dd, 3) == round(davMarLik, 3)], 10)
-ll <- unique(bords)[1]+0.02
-uu <- unique(bords)[length(unique(bords))]-0.01
+ll <- unique(bords)[1]
+uu <- unique(bords)[length(unique(bords))]
 abline(v = uu)
 abline(v = ll)
 lines(ss, priorD, type="l", lwd = 3, col ="blue")
@@ -261,7 +260,7 @@ We have now seen three different posterior distributions, for the three people (
 
 ### The Beta Distribution
 
-In Bayesian inference, the prior distribution can be any probability distribution (depending on which models you want to compare, or which model is most suitable for estimation). One requirement for the prior distribution is that it matches the domain of the parameter. In the case of a proportion, this means that the prior distribution ranges from 0 to 1. One such family of distributions is the [**beta distribution**](https://en.wikipedia.org/wiki/Beta_distribution). The beta distribution can take on many different shapes, based on the value of its two shape parameters $\alpha$ and $\beta$ (sometimes also just written in Latin, *a* and *b*). Setting these shape parameters changes how the beta distribution looks. You can play around in [this applet](https://researchmethodsuva.shinyapps.io/BayesTestMini/) or [this applet](https://homepage.divms.uiowa.edu/~mbognar/applets/beta.html), to get an idea.
+In Bayesian inference, the prior distribution can be any probability distribution (depending on which models you want to compare, or which model is most suitable for estimation). One requirement for the prior distribution is that it matches the domain of the parameter. In the case of a proportion, this means that the prior distribution ranges from 0 to 1. One such family of distributions is the [**beta distribution**](https://en.wikipedia.org/wiki/Beta_distribution). The beta distribution can take on many different shapes, based on the value of its two shape parameters $\alpha$ and $\beta$ (sometimes also just written in Latin, *a* and *b*). Setting these shape parameters changes how the beta distribution looks. You can play around in [this applet](https://researchmethodsuva.shinyapps.io/BayesTestMini/) to get an idea.
 
 <!-- ``` {r, echo = FALSE} -->
 
@@ -290,19 +289,16 @@ Typically, when applying Bayesian estimation, we use the most uninformed model, 
 # David's marginal
 #| label: fig-prior-posterior-binomial-david-alt
 
-samps <- rbeta(1e5, 3, 1)
-samps[samps<0.5] <- 1- samps[samps<0.5]
-samps <- c(0:5, rbinom(1e5, 11, samps))
-davMarLik <- (table(samps)/1e5)[2]
+# 1 heads out of 11 is too rare under David's model to simulate (about 27 in 1e5 draws), so integrate
+davMarLik <- integrate(function(x) dbinom(1, 11, x) * tBetFun(x, 3, 1), lower = 0.5, upper = 1)$value
 
 ss <- seq(0, 1, length.out = 1e4)
-priorD <- dbeta(ss, 3, 1)
-priorD <- ifelse(ss < 0.5, 0, priorD)
+priorD <- tBetFun(ss, 3, 1)
 dd <- dbinom(1, 11, ss)
-posterior <- (priorD * dd) / (davMarLik/ integrate(function(x) dbeta(x, 3, 1), lower = 0.5, upper = 1)$value)
+posterior <- priorD * dd / davMarLik
 par(cex = 1.4, cex.lab = 1.4, mar = c(5.1, 4.5, 4.1, 2.1))
 plot(ss, posterior, type = "l", bty = "n", las = 1, ylab = "Density", xlab = bquote(theta),
-     main = bquote("David's Prior and Posterior Distribution of" ~theta), ylim = c(0, 10),
+     main = bquote("David's Prior and Posterior Distribution of" ~theta), ylim = c(0, 18),
      lwd = 3, col = "darkorange")
 lines(ss, priorD, type="l", lwd = 3, col ="blue")
 lines(ss, posterior, type="l", lwd = 3, col ="orange", lty = 2)
